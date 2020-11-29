@@ -80,7 +80,7 @@ class SignUpScreenState extends State<SignUpScreen>{
             Padding(
               padding:  EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/10),
               child: SvgPicture.asset(
-                "assets/images/login.svg",
+                "assets/images/signup.svg",
                 height: MediaQuery.of(context).size.height/6 ,
               ),
             ),
@@ -203,26 +203,6 @@ class SignUpScreenState extends State<SignUpScreen>{
               ),
             ),
 
-            SizedBox(
-              height: MediaQuery.of(context).size.height/40,
-            ),
-
-            SizedBox(
-              width: MediaQuery.of(context).size.width/1.2,
-              height: MediaQuery.of(context).size.height/14,
-              child: FlatButton(
-                child: Text("Already have an account", style: Theme.of(context).textTheme.headline4,),
-                // color: Theme.of(context).hoverColor,
-                // shape: RoundedRectangleBorder(
-                //     borderRadius: BorderRadius.all(Radius.circular(10))
-                // ),
-                onPressed: ()=> Navigator.push(context, PageTransition(type: PageTransitionType.leftToRightWithFade, child: LoginScreen())),
-              ),
-            ),
-
-            SizedBox(
-              height: MediaQuery.of(context).size.height/10,
-            ),
 
           ],
         ),
