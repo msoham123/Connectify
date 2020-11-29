@@ -1,15 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:connectify/models/User.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:connectify/models/ConnectifyUser.dart';
 
 class DatabaseService {
 
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
   /// Get a stream of a single document
-  Stream<ConnectifyUser> streamHero(String id) {
+  Stream<ConnectifyUser> streamUsers(String id) {
     return _db
-        .collection('heroes')
+        .collection('users')
         .doc(id)
         .snapshots()
         .map((snapshot) => ConnectifyUser.fromMap(snapshot.data()));

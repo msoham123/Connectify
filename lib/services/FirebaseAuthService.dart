@@ -1,11 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 
 class FirebaseAuthService {
 
-  final CollectionReference users = Firestore.instance.collection('users');
+  final CollectionReference users = FirebaseFirestore.instance.collection('users');
   final _firebaseAuth = FirebaseAuth.instance;
+  bool _loggedIn = false;
+
+  bool isLoggedIn()=> _loggedIn;
 
   User _userFromFirebase(User user) {
     return user == null ? null : user;
