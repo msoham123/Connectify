@@ -1,4 +1,5 @@
 import 'package:connectify/auth/LoginScreen.dart';
+import 'package:connectify/auth/SignUpScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -78,12 +79,29 @@ class LandingScreenState extends State<LandingScreen>{
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10))
                 ),
-                onPressed: ()=> Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeftWithFade, child: LoginScreen())),
+                onPressed: ()=> Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeftWithFade, child: SignUpScreen())),
               ),
             ),
 
             SizedBox(
-              height: MediaQuery.of(context).size.height/10,
+              height: MediaQuery.of(context).size.height/40,
+            ),
+
+            SizedBox(
+              width: MediaQuery.of(context).size.width/1.2,
+              height: MediaQuery.of(context).size.height/14,
+              child: FlatButton(
+                child: Text("Already have an account", style: Theme.of(context).textTheme.headline4,),
+                // color: Theme.of(context).hoverColor,
+                // shape: RoundedRectangleBorder(
+                //     borderRadius: BorderRadius.all(Radius.circular(10))
+                // ),
+                onPressed: ()=> Navigator.push(context, PageTransition(type: PageTransitionType.leftToRightWithFade, child: LoginScreen())),
+              ),
+            ),
+
+            SizedBox(
+              height: MediaQuery.of(context).size.height/20,
             ),
 
           ],
