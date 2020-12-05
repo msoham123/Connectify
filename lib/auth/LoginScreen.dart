@@ -1,4 +1,6 @@
 import 'package:connectify/auth/LandingScreen.dart';
+import 'package:connectify/main.dart';
+import 'package:connectify/nav/Navigation.dart';
 import 'package:connectify/services/DatabaseService.dart';
 import 'package:connectify/services/FirebaseAuthService.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -164,7 +166,10 @@ class LoginScreenState extends State<LoginScreen>{
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10))
                 ),
-                onPressed: ()=> null,
+                onPressed: () async{
+                  if(email.text.contains(".com")&&email.text.length>4&&password.text.isNotEmpty)  MyApp.user = await Provider.of<FirebaseAuthService>(context, listen: false).signInWithEmailAndPassword(email.text.trim(), password.text.trim());
+                  if(MyApp.user!=null) Navigator.pushAndRemoveUntil(context, PageTransition(type: PageTransitionType.leftToRightWithFade, child: Navigation()), (Route<dynamic> route) => false);
+                },
               ),
             ),
 

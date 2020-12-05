@@ -8,6 +8,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
+import '../main.dart';
 import 'LandingScreen.dart';
 
 class SignUpScreen extends StatefulWidget{
@@ -197,8 +198,8 @@ class SignUpScreenState extends State<SignUpScreen>{
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10))
                 ),
-                onPressed: (){
-                  if(email.text.contains(".com")&&email.text.length>4&&password.text.isNotEmpty) Provider.of<FirebaseAuthService>(context, listen: false).createUserWithEmailAndPassword(email.text, password.text);
+                onPressed: () async {
+                  if(email.text.contains(".com")&&email.text.length>4&&password.text.isNotEmpty) MyApp.user = await Provider.of<FirebaseAuthService>(context, listen: false).createUserWithEmailAndPassword(email.text.trim(), password.text.trim());
                 },
               ),
             ),
