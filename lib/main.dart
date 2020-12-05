@@ -1,6 +1,8 @@
 import 'package:connectify/auth/LandingScreen.dart';
 import 'package:connectify/services/DatabaseService.dart';
 import 'package:connectify/services/FirebaseAuthService.dart';
+import 'package:device_preview/device_preview.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,13 +11,25 @@ import 'package:provider/provider.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(MyApp());
+  runApp(
+    DevicePreview(
+      enabled: false,
+      builder: (context) => MyApp(), // Wrap your app
+    ),
+  );
 }
 
 
 
 
 class MyApp extends StatelessWidget {
+
+  //Global Variables
+
+  static User user;
+
+
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
@@ -39,6 +53,9 @@ class MyApp extends StatelessWidget {
           //Button Colors
           buttonColor: Color.fromRGBO(242, 114, 138, 1),
           hoverColor: Color.fromRGBO(47, 150, 255, 1),
+
+          //Nav Bar Icon Color
+          bottomAppBarColor: Colors.black,
 
 
           //General Text
@@ -86,6 +103,8 @@ class MyApp extends StatelessWidget {
           ),
         ),
         debugShowCheckedModeBanner: false,
+        locale: DevicePreview.locale(context), // Add the locale here
+        builder: DevicePreview.appBuilder,
         home: LandingScreen(),
       ),
     );
