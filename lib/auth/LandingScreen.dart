@@ -31,7 +31,10 @@ class LandingScreenState extends State<LandingScreen>{
             ),
 
             Center(
-              child: Text(
+              child: (MediaQuery.of(context).size.width<400) ? Text(
+                "Connect. Grow. \nCreate Together.",
+                style: Theme.of(context).textTheme.headline1,
+              ) : Text(
                 "Connect. Grow. Create Together.",
                 style: Theme.of(context).textTheme.headline1,
               ),
@@ -41,9 +44,11 @@ class LandingScreenState extends State<LandingScreen>{
               height: MediaQuery.of(context).size.height/50,
             ),
 
-            Text(
-              "Discover and Connect with Amazing People",
-              style: Theme.of(context).textTheme.subtitle1,
+            Center(
+              child: Text(
+                "Discover and Connect with Amazing People",
+                style: Theme.of(context).textTheme.subtitle1,
+              ),
             ),
 
             SizedBox(
