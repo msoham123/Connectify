@@ -26,7 +26,7 @@ enum ThemeStyle {
 class NavigationBarState extends State<NavigationBar>{
 
   int _currentIndex = 0;
-  var _currentStyle = ThemeStyle.FloatingNotif;
+  var _currentStyle = ThemeStyle.AntDesign;
   List<int> _badgeCounts = List<int>.generate(5, (index) => index);
   List<bool> _badgeShows = List<bool>.generate(5, (index) => true);
 
@@ -245,35 +245,49 @@ class NavigationBarState extends State<NavigationBar>{
 
   Widget _buildCustomIconDesign() {
     return CustomNavigationBar(
-      iconSize: 30.0,
-      selectedColor: Color(0xff0c18fb),
-      strokeColor: Color(0x300c18fb),
+      selectedColor: Theme.of(context).buttonColor,
+      strokeColor: Theme.of(context).buttonColor,
       unSelectedColor: Colors.grey[600],
       backgroundColor: Colors.white,
       items: [
         CustomNavigationBarItem(
-          icon: Icon(
-            AntDesign.home,
+          icon: Center(
+            child: Icon(
+              AntDesign.home,
+              size: 25,
+            ),
           ),
         ),
         CustomNavigationBarItem(
-          icon: Icon(
-            AntDesign.shoppingcart,
+          icon: Center(
+            child: Icon(
+              AntDesign.shoppingcart,
+              size: 25,
+            ),
           ),
         ),
         CustomNavigationBarItem(
-          icon: Icon(
-            AntDesign.cloudo,
+          icon: Center(
+            child: Icon(
+              AntDesign.cloudo,
+              size: 25,
+            ),
           ),
         ),
         CustomNavigationBarItem(
-          icon: Icon(
-            AntDesign.search1,
+          icon: Center(
+            child: Icon(
+              AntDesign.search1,
+              size: 25,
+            ),
           ),
         ),
         CustomNavigationBarItem(
-          icon: Icon(
-            AntDesign.user,
+          icon: Center(
+            child: Icon(
+              AntDesign.user,
+              size: 25,
+            ),
           ),
         ),
       ],

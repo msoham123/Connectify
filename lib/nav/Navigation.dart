@@ -20,10 +20,7 @@ class NavigationState extends State<Navigation>{
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
-      bottomNavigationBar: Padding(
-          padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height/40),
-          child: NavigationBar()
-      ),
+      bottomNavigationBar: NavigationBar(),
       body: Container(
         child: Center(
           child: FlatButton(
