@@ -1,7 +1,6 @@
 import 'package:connectify/auth/LandingScreen.dart';
 import 'package:connectify/services/DatabaseService.dart';
 import 'package:connectify/services/FirebaseAuthService.dart';
-import 'package:device_preview/device_preview.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -12,14 +11,9 @@ void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(
-    DevicePreview(
-      enabled: false,
-      builder: (context) => MyApp(), // Wrap your app
-    ),
+    MyApp(), // Wrap your app
   );
 }
-
-
 
 
 class MyApp extends StatelessWidget {
@@ -103,8 +97,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
         debugShowCheckedModeBanner: false,
-        locale: DevicePreview.locale(context), // Add the locale here
-        builder: DevicePreview.appBuilder,
+         // Add the locale here
         home: LandingScreen(),
       ),
     );
