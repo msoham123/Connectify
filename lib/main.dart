@@ -6,6 +6,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'models/ConnectifyUser.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,8 +22,7 @@ class MyApp extends StatelessWidget {
   //Global Variables
 
   static User user;
-
-
+  static ConnectifyUser current;
 
   @override
   Widget build(BuildContext context) {
