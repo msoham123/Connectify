@@ -1,3 +1,4 @@
+import 'package:connectify/auth/IntroSliderScreen.dart';
 import 'package:connectify/widgets/NavigationBar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,9 @@ class NavigationState extends State<Navigation>{
         child: Center(
           child: FlatButton(
             child: Text("Reset"),
-            onPressed: ()=> Navigator.pushAndRemoveUntil(context, PageTransition(type: PageTransitionType.leftToRightWithFade, child: Navigation()), (Route<dynamic> route) => false),
+            onPressed: ()=> Navigator.push(context, PageTransition(type: PageTransitionType.leftToRightWithFade, child: IntroSliderScreen())),
+
+            // onPressed: ()=> Navigator.pushAndRemoveUntil(context, PageTransition(type: PageTransitionType.leftToRightWithFade, child: Navigation()), (Route<dynamic> route) => false),
           ),
         ),
       ),
