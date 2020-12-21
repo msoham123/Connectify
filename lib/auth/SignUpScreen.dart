@@ -1,11 +1,12 @@
-import 'package:connectify/auth/LoginScreen.dart';
+import 'package:connectify/auth/SchoolScreen.dart';
+import 'package:connectify/models/ConnectifyUser.dart';
 import 'package:connectify/nav/Navigation.dart';
 import 'package:connectify/services/DatabaseService.dart';
 import 'package:connectify/services/FirebaseAuthService.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:material_dialogs/material_dialogs.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
@@ -111,6 +112,8 @@ class SignUpScreenState extends State<SignUpScreen>{
                     obscureText: false,
                     decoration: InputDecoration(
                       icon: IconButton(
+                        enableFeedback: false,
+                        onPressed: ()=>null,
                         icon: Icon(Icons.text_fields),
                         color: Colors.blueGrey,
                         hoverColor: Colors.white30,
@@ -118,7 +121,7 @@ class SignUpScreenState extends State<SignUpScreen>{
                       border: InputBorder.none,
                       fillColor: Colors.white,
                       hoverColor: Color(0xFF094074),
-                      hintText: "Name",
+                      hintText: "Full Name",
                       hintStyle: Theme.of(context).textTheme.subtitle2,
                     ),
                   ),
@@ -144,6 +147,8 @@ class SignUpScreenState extends State<SignUpScreen>{
                     obscureText: false,
                     decoration: InputDecoration(
                       icon: IconButton(
+                        enableFeedback: false,
+                        onPressed: ()=>null,
                         icon: Icon(Icons.email),
                         color: Colors.blueGrey,
                         hoverColor: Colors.white30,
@@ -174,9 +179,11 @@ class SignUpScreenState extends State<SignUpScreen>{
                     style: TextStyle(
                         color: Color(0xFFF234253),
                         fontWeight: FontWeight.bold),
-                    obscureText: false,
+                    obscureText: true,
                     decoration: InputDecoration(
                       icon: IconButton(
+                        enableFeedback: false,
+                        onPressed: ()=>null,
                         icon: Icon(Icons.lock),
                         color: Colors.blueGrey,
                         hoverColor: Colors.white30,
@@ -205,14 +212,54 @@ class SignUpScreenState extends State<SignUpScreen>{
                       borderRadius: BorderRadius.all(Radius.circular(10))
                   ),
                   onPressed: () async {
+                    bool response;
+                    ConnectifyUser user;
                     if(email.text.contains(".com")&&email.text.length>4&&password.text.isNotEmpty) {
                       setState(() {
                         _inAsyncCall = true;
                       });
                       MyApp.user = await Provider.of<FirebaseAuthService>(context, listen: false).createUserWithEmailAndPassword(email.text.trim(), password.text.trim());
+                      user = ConnectifyUser(
+                        username: username.text.trim(),
+                        email: email.text.trim(),
+                        password: password.text.trim(),
+                        school: "",
+                        description: "",
+                        following: [],
+                        followers: [],
+                        posts: [],
+                        messages: [],
+                        dateAccountCreated: DateTime.now(),
+                        saved: [],
+                        groups: [],
+                        notifications: [],
+                      );
+                      response = await Provider.of<DatabaseService>(context, listen: false).createUser(MyApp.user.uid, user);
                     }
-                    if(MyApp.user!=null) Navigator.pushAndRemoveUntil(context, PageTransition(type: PageTransitionType.leftToRightWithFade, child: Navigation()), (Route<dynamic> route) => false);
-                    setState(() {
+                    if(MyApp.user!=null && response==true) {
+                      MyApp.current = user;
+                      Navigator.pushAndRemoveUntil(context, PageTransition(
+                          type: PageTransitionType.leftToRightWithFade,
+                          child: SchoolScreen()), (Route<
+                          dynamic> route) => false);
+                    }else{
+                      Dialogs.materialDialog(
+                        msg: 'Could not create user. Please try again!',
+                        title: "Error",
+                        color: Colors.white,
+                        context: context,
+                        singleBtn: true,
+                        btn1Press: ()=> Navigator.pop(context),
+                        btn1Bcg: Theme.of(context).buttonColor,
+                        btnShape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(10))
+                        ),
+                        btn1Text: 'Close',
+                        btn2Press: ()=>null,
+                        btn2Text: '',
+                      );
+                    }
+                      setState(() {
                       _inAsyncCall = false;
                     });
                   },
