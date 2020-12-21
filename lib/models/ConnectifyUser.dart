@@ -18,10 +18,25 @@ class ConnectifyUser{
       followers: data['followers'],
       posts: data['posts'],
       messages: data['messages'],
-      dateAccountCreated: data['joined'],
+      dateAccountCreated: data['dateAccountCreated'],
       groups: data['groups'],
       notifications: data['notifications']
     );
   }
 
+
+  Map<String, dynamic> toJSON(ConnectifyUser instance) => <String, dynamic>{
+    'username': username,
+    'email': email,
+    'password': password,
+    'school': school,
+    'description': description,
+    'following': following,
+    'followers': followers,
+    'posts': posts,
+    'messages': messages,
+    'dateAccountCreated': dateAccountCreated,
+    'groups': groups,
+    'notifications': notifications
+  };
 }
