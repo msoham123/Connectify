@@ -2,7 +2,6 @@ import 'package:connectify/auth/LoginScreen.dart';
 import 'package:connectify/auth/SignUpScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:page_transition/page_transition.dart';
 
 class LandingScreen extends StatefulWidget{

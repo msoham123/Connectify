@@ -1,18 +1,13 @@
 import 'package:connectify/auth/LandingScreen.dart';
 import 'package:connectify/main.dart';
 import 'package:connectify/nav/Navigation.dart';
-import 'package:connectify/services/DatabaseService.dart';
 import 'package:connectify/services/FirebaseAuthService.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:material_dialogs/material_dialogs.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
-
-import 'SignUpScreen.dart';
 
 class LoginScreen extends StatefulWidget{
   @override
@@ -112,6 +107,8 @@ class LoginScreenState extends State<LoginScreen>{
                     obscureText: false,
                     decoration: InputDecoration(
                       icon: IconButton(
+                        enableFeedback: false,
+                        onPressed: ()=>null,
                         icon: Icon(Icons.email),
                         color: Colors.blueGrey,
                         hoverColor: Colors.white30,
@@ -142,9 +139,11 @@ class LoginScreenState extends State<LoginScreen>{
                     style: TextStyle(
                         color: Color(0xFFF234253),
                         fontWeight: FontWeight.bold),
-                    obscureText: false,
+                    obscureText: true,
                     decoration: InputDecoration(
                       icon: IconButton(
+                        enableFeedback: false,
+                        onPressed: ()=>null,
                         icon: Icon(Icons.lock),
                         color: Colors.blueGrey,
                         hoverColor: Colors.white30,
