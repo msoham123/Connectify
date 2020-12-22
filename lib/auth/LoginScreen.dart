@@ -6,6 +6,7 @@ import 'package:connectify/services/FirebaseAuthService.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:material_dialogs/material_dialogs.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
@@ -190,6 +191,55 @@ class LoginScreenState extends State<LoginScreen>{
                       _inAsyncCall = false;
                     });
                     },
+                ),
+              ),
+
+              SizedBox(
+                height: MediaQuery.of(context).size.height/20,
+              ),
+
+              SizedBox(
+                width: MediaQuery.of(context).size.width/1.2,
+                height: MediaQuery.of(context).size.height/14,
+                child: FlatButton(
+                  child: Text("Dev", style: Theme.of(context).textTheme.button,),
+                  color: Theme.of(context).buttonColor,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10))
+                  ),
+                  onPressed: () async{
+                      setState(() {
+                        _inAsyncCall = true;
+                      });
+                      MyApp.user = await Provider.of<FirebaseAuthService>(context, listen: false).signInWithEmailAndPassword('msoham123@gmail.com', 'msoham123');
+                    if(MyApp.user!=null) {
+                      MyApp.current = await Provider.of<FirestoreService>(context, listen: false).getUser(MyApp.user.uid);
+                      Navigator.pushAndRemoveUntil(context, PageTransition(
+                          type: PageTransitionType.leftToRightWithFade,
+                          child: Navigation()), (Route<
+                          dynamic> route) => false);
+                    }else{
+                      Dialogs.materialDialog(
+                          msg: 'Could not login. Please try again.',
+                          title: "Error",
+                          color: Colors.white,
+                          context: context,
+                          actions: [
+                            FlatButton(
+                              child: Text("Close", style: Theme.of(context).textTheme.button,),
+                              color: Theme.of(context).buttonColor,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(Radius.circular(10))
+                              ),
+                              onPressed: ()=> Navigator.pop(context),
+                            ),
+                          ]
+                      );
+                    }
+                    setState(() {
+                      _inAsyncCall = false;
+                    });
+                  },
                 ),
               ),
 
