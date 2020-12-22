@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:connectify/main.dart';
+import 'package:connectify/models/ConnectifyPost.dart';
 import 'package:connectify/models/ConnectifyUser.dart';
 
-class DatabaseService {
+class FirestoreService {
 
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
@@ -66,12 +66,29 @@ class DatabaseService {
   }
 
 
+  Future<List<ConnectifyPost>> getPosts()async{
+    List<ConnectifyPost> list = [];
+    await _db.collection("posts").get().then((snapshot){
+      for(int i = snapshot.docs.length-1; i>=0; i-- ){
+        list.add(ConnectifyPost.fromJSON(snapshot.docs[i].data()));
+      }
+    });
+    return list;
+  }
+
   /// Write data
   Future<bool> createUser(String id, ConnectifyUser user) async{
-     return await _db
-         .collection('users')
-         .doc(id)
-         .set(user.toJSON(user)).then((value) => true, onError:(value)=> false);
+    return await _db
+        .collection('users')
+        .doc(id)
+        .set(user.toJSON(user)).then((value) => true, onError:(value)=> false);
+  }
+
+  Future<bool> createPost(String postId, ConnectifyPost post) async{
+    return await _db
+        .collection('posts')
+        .doc(postId)
+        .set(post.toJSON(post)).then((value) => true, onError:(value)=> false);
   }
 
 
