@@ -66,14 +66,16 @@ class FirestoreService {
   }
 
 
-  Future<List<ConnectifyPost>> getPosts()async{
+  Future<List<List<dynamic>>> getPosts()async{
     List<ConnectifyPost> list = [];
+    List<String> postID = [];
     await _db.collection("posts").get().then((snapshot){
       for(int i = snapshot.docs.length-1; i>=0; i-- ){
         list.add(ConnectifyPost.fromJSON(snapshot.docs[i].data()));
+        postID.add(snapshot.docs[i].id);
       }
     });
-    return list;
+    return [list,postID];
   }
 
   /// Write data
@@ -91,9 +93,13 @@ class FirestoreService {
         .set(post.toJSON(post)).then((value) => true, onError:(value)=> false);
   }
 
-
-
-
-
+  Future<void> incrementStar(String postId, List<String> current)async {
+    return await _db
+        .collection('posts')
+        .doc(postId)
+        .update({
+      'stars': current,
+    });
+  }
 
 }
