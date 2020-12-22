@@ -255,22 +255,22 @@ class CreatePostPageState extends State<CreatePostPage>{
                           Navigator.pop(context);
                         }else{
                           Dialogs.materialDialog(
-                            msg: 'Could not create post. Please try again!',
+                            msg: 'Could not create post. Please try again.',
                             title: "Error",
                             color: Colors.white,
                             context: context,
-                            singleBtn: true,
-                            btn1Press: ()=> Navigator.pop(context),
-                            btn1Bcg: Theme.of(context).buttonColor,
-                            btnShape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(10))
-                            ),
-                            btn1Text: 'Close',
-                            btn2Press: ()=>null,
-                            btn2Text: '',
+                            actions: [
+                              FlatButton(
+                                child: Text("Close", style: Theme.of(context).textTheme.button,),
+                                color: Theme.of(context).buttonColor,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(Radius.circular(10))
+                                ),
+                                onPressed: ()=> Navigator.pop(context),
+                              ),
+                            ]
                           );
                         }
-
                       }
                     } : null,
                   ),
