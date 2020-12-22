@@ -7,13 +7,22 @@ class DatabaseService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
   /// Get a stream of a single document
-  Stream<ConnectifyUser> streamUsers(String id) {
+  // Stream<ConnectifyUser> streamUsers(String id) {
+  //   return _db
+  //       .collection('users')
+  //       .doc(id)
+  //       .snapshots()
+  //       .map((snapshot) => ConnectifyUser.fromMap(snapshot.data()));
+  // }
+
+
+  Future<ConnectifyUser> getUser(String id){
     return _db
         .collection('users')
         .doc(id)
-        .snapshots()
-        .map((snapshot) => ConnectifyUser.fromMap(snapshot.data()));
+        .get().then((value) => ConnectifyUser.fromJSON(value.data()));
   }
+
 
   /// Query a subcollection
   // Stream<List<Weapon>> streamWeapons(User user) {
