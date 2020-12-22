@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'models/ConnectifyUser.dart';
 
+
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
 
   static User user;
   static ConnectifyUser current;
+
 
 
   @override
