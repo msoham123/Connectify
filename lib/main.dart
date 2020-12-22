@@ -1,5 +1,6 @@
 import 'package:connectify/auth/LandingScreen.dart';
-import 'package:connectify/services/DatabaseService.dart';
+import 'package:connectify/services/Dropbox.dart';
+import 'package:connectify/services/FirestoreService.dart';
 import 'package:connectify/services/FirebaseAuthService.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -11,6 +12,7 @@ import 'models/ConnectifyUser.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await DropBox().initDropbox();
   runApp(
     MyApp(), // Wrap your app
   );
@@ -24,6 +26,7 @@ class MyApp extends StatelessWidget {
   static User user;
   static ConnectifyUser current;
 
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
@@ -32,8 +35,8 @@ class MyApp extends StatelessWidget {
         Provider<FirebaseAuthService>(
           create: (_) => FirebaseAuthService(),
         ),
-        Provider<DatabaseService>(
-          create: (_) => DatabaseService(),
+        Provider<FirestoreService>(
+          create: (_) => FirestoreService(),
         ),
       ],
       child: MaterialApp(
