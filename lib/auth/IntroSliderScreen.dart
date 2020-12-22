@@ -1,6 +1,7 @@
 import 'package:connectify/nav/Navigation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -22,32 +23,69 @@ class IntroSliderScreenState extends State<IntroSliderScreen>{
         pages: [
           PageViewModel(
             title: "",
-            bodyWidget: Text("Develop Your Skills", style: Theme.of(context).textTheme.button.merge(TextStyle(fontSize: 15))),
-            image: Center(child: Image.asset("res/images/logo.png", height: MediaQuery.of(context).size.height/1.5)),
+            bodyWidget: SizedBox(
+              height: MediaQuery.of(context).size.height/1.5,
+              width: MediaQuery.of(context).size.width,
+              child: Column(
+                children: [
+                  SizedBox(height: MediaQuery.of(context).size.height/30,),
+                  Expanded(child: SvgPicture.asset("assets/images/skills.svg")),
+                  Text("Learn and Enhance Your Skills", style: Theme.of(context).textTheme.button.merge(TextStyle(fontSize: 15))),
+                ],
+              ),
+            ),
             decoration:  PageDecoration(
               pageColor: Theme.of(context).buttonColor,
             ),
           ),
           PageViewModel(
             title: "",
-            bodyWidget: Text("Develop Your Skills", style: Theme.of(context).textTheme.button.merge(TextStyle(fontSize: 15))),
-            image: Center(child: Image.asset("res/images/logo.png", height: MediaQuery.of(context).size.height/1.5)),
+            bodyWidget: SizedBox(
+              height: MediaQuery.of(context).size.height/1.5,
+              width: MediaQuery.of(context).size.width,
+              child: Column(
+                children: [
+                  SizedBox(height: MediaQuery.of(context).size.height/30,),
+                  Expanded(child: SvgPicture.asset("assets/images/chat.svg")),
+                  Text("Connect and Chat With Other Students", style: Theme.of(context).textTheme.button.merge(TextStyle(fontSize: 15))),
+                ],
+              ),
+            ),
             decoration:  PageDecoration(
               pageColor: Theme.of(context).buttonColor,
             ),
           ),
           PageViewModel(
             title: "",
-            bodyWidget: Text("Develop Your Skills", style: Theme.of(context).textTheme.button.merge(TextStyle(fontSize: 15))),
-            image: Center(child: Image.asset("res/images/logo.png", height: MediaQuery.of(context).size.height/1.5)),
+            bodyWidget: SizedBox(
+              height: MediaQuery.of(context).size.height/1.5,
+              width: MediaQuery.of(context).size.width,
+              child: Column(
+                children: [
+                  SizedBox(height: MediaQuery.of(context).size.height/30,),
+                  Expanded(child: SvgPicture.asset("assets/images/worktogether.svg")),
+                  Text("Create and Join Startups", style: Theme.of(context).textTheme.button.merge(TextStyle(fontSize: 15))),
+                  Text("Find Opportunities", style: Theme.of(context).textTheme.button.merge(TextStyle(fontSize: 15))),
+                ],
+              ),
+            ),
             decoration:  PageDecoration(
               pageColor: Theme.of(context).buttonColor,
             ),
           ),
           PageViewModel(
             title: "",
-            bodyWidget: Text("Develop Your Skills", style: Theme.of(context).textTheme.button.merge(TextStyle(fontSize: 15))),
-            image: Center(child: Image.asset("res/images/logo.png", height: MediaQuery.of(context).size.height/1.5)),
+            bodyWidget: SizedBox(
+              height: MediaQuery.of(context).size.height/1.5,
+              width: MediaQuery.of(context).size.width,
+              child: Column(
+                children: [
+                  SizedBox(height: MediaQuery.of(context).size.height/30,),
+                  Expanded(child: SvgPicture.asset("assets/images/portfolio.svg")),
+                  Text("Build Your Profile and Professional Network", style: Theme.of(context).textTheme.button.merge(TextStyle(fontSize: 15))),
+                ],
+              ),
+            ),
             decoration:  PageDecoration(
               pageColor: Theme.of(context).buttonColor,
             ),
