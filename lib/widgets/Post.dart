@@ -1,9 +1,6 @@
-
-
 import 'dart:math';
-
+import 'package:better_player/better_player.dart';
 import 'package:connectify/main.dart';
-import 'package:connectify/models/ConnectifyPost.dart';
 import 'package:connectify/models/ConnectifyUser.dart';
 import 'package:connectify/services/FirestoreService.dart';
 import 'package:flutter/cupertino.dart';
@@ -13,13 +10,14 @@ import 'package:provider/provider.dart';
 
 class Post extends StatefulWidget{
 
-  String description, uid, imageUrl, hashtags;
+  String description, uid, imageUrl, hashtags, postId;
   Map<String, String> comments;
   List<String> stars;
   ScrollController _controller = ScrollController();
   DateTime datePublished;
+  bool isImage;
 
-  Post({this.description,this.uid, this.imageUrl, this.comments, this.stars, this.datePublished,this.hashtags});
+  Post({this.description,this.uid, this.imageUrl, this.comments, this.stars, this.datePublished,this.hashtags, this.postId, this.isImage});
 
 
   @override
@@ -38,9 +36,15 @@ class PostState extends State<Post>{
 
  @override
   void initState() {
-   _loadUser();
+    _loadUser();
     super.initState();
+ }
+
+ @override
+  void dispose() {
+    super.dispose();
   }
+
 
   void _loadUser()async{
     user = await Provider.of<FirestoreService>(context, listen: false).getUser(widget.uid);
@@ -68,124 +72,176 @@ class PostState extends State<Post>{
 
   @override
   Widget build(BuildContext context) {
-    return _inAsyncCall ? SizedBox() : Container(
-        width: MediaQuery.of(context).size.width/1.1,
-        decoration: BoxDecoration(
-          color: Theme.of(context).backgroundColor,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey,
-              offset: Offset(0.0, 1.0), //(x,y)
-              blurRadius: 2.0,
-            ),
-          ],
-        ),
-        child: Column(
-            children: [
-              SizedBox(
-                height: MediaQuery.of(context).size.height/40,
+    return _inAsyncCall ? SizedBox() : GestureDetector(
+      onDoubleTap: (){
+
+      },
+      child: Container(
+          height: MediaQuery.of(context).size.height/1.7,
+          width: MediaQuery.of(context).size.width/1.1,
+          // margin: EdgeInsets.only(bottom: 30),
+          decoration: BoxDecoration(
+            color: Theme.of(context).backgroundColor,
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey,
+                offset: Offset(0.0, 1.0), //(x,y)
+                blurRadius: 2.0,
               ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width/20,
-                    ),
-                    Center(
-                      child: Container(
-                        height: MediaQuery.of(context).size.height/15,
-                        width: MediaQuery.of(context).size.height/15,
-                        decoration: BoxDecoration(
-                          image: _inAsyncCall ? null: DecorationImage(
-                              fit: BoxFit.cover, image: NetworkImage(user.image)),
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          color: Theme.of(context).buttonColor,
-                        ),
+            ],
+          ),
+          child: Column(
+              children: [
+                SizedBox(
+                  height: MediaQuery.of(context).size.height/40,
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width/20,
                       ),
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width/20,
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(user.username,
-                          style: Theme.of(context).textTheme.subtitle1.merge(TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
-                        ),
-                        Text(
-                          time,
-                          style: Theme.of(context).textTheme.subtitle1.merge(TextStyle(fontSize: 15,)),
-                        ),
-                      ],
-                    ),
-                    Expanded(
-                      child: SizedBox(
-                        child: Align(
-                          alignment: Alignment.centerRight,
-                          child:  IconButton(
-                            icon: Icon(AntDesign.retweet, color: Theme.of(context).textTheme.subtitle1.color,),
-                            onPressed: (){
-                            },
+                      Center(
+                        child: Container(
+                          height: MediaQuery.of(context).size.height/15,
+                          width: MediaQuery.of(context).size.height/15,
+                          decoration: BoxDecoration(
+                            image: _inAsyncCall ? null: DecorationImage(
+                                fit: BoxFit.cover, image: NetworkImage(user.image)),
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            color: Theme.of(context).buttonColor,
                           ),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width/20,
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height/40,
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  image: _inAsyncCall ? null: DecorationImage(
-                      fit: BoxFit.cover, image: NetworkImage(widget.imageUrl)),
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                  color: Theme.of(context).buttonColor,
-                ),
-                width: MediaQuery.of(context).size.width/1.3,
-                height: MediaQuery.of(context).size.height/3.5,
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height/40,
-              ),
-              Row(
-                children: [
-                  FlatButton(
-                    child: Row(
-                      children: [
-                        Icon(AntDesign.star, color: Colors.blue,),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width/40,
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width/20,
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(user.username,
+                            style: Theme.of(context).textTheme.subtitle1.merge(TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+                          ),
+                          Text(
+                            time,
+                            style: Theme.of(context).textTheme.subtitle1.merge(TextStyle(fontSize: 15,)),
+                          ),
+                        ],
+                      ),
+                      Expanded(
+                        child: SizedBox(
+                          child: Align(
+                            alignment: Alignment.centerRight,
+                            child:  IconButton(
+                              splashColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              icon: Icon(AntDesign.retweet, color: Theme.of(context).textTheme.subtitle1.color,),
+                              onPressed: (){
+                              },
+                            ),
+                          ),
                         ),
-                        Text(
-                          widget.stars!=null ? widget.stars.length.toString() : '0',
-                          style: Theme.of(context).textTheme.subtitle1.merge(TextStyle(fontSize: 15)),
-                        ),
-                      ],
-                    ),
-                    onPressed: (){
-                    },
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width/20,
+                      ),
+                    ],
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(right: MediaQuery.of(context).size.width/30),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height/40,
+                ),
+                widget.isImage ? Container(
+                  decoration: BoxDecoration(
+                    image: _inAsyncCall ? null: DecorationImage(
+                        fit: BoxFit.cover, image: NetworkImage(widget.imageUrl)),
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    color: Theme.of(context).buttonColor,
+                  ),
+                  width: MediaQuery.of(context).size.width/1.3,
+                  height: MediaQuery.of(context).size.height/3.5,
+                ): Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    color: Theme.of(context).buttonColor,
+                  ),
+                  width: MediaQuery.of(context).size.width/1.3,
+                  height: MediaQuery.of(context).size.height/3.5,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: BetterPlayer.network(widget.imageUrl, betterPlayerConfiguration: BetterPlayerConfiguration(
+                      aspectRatio: 3 / 2,
+                    ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height/30,
+                ),
+                if(widget.hashtags!=null && widget.hashtags!="")Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/15),
                     child: Text(
-                      widget.description,
-                      style: Theme.of(context).textTheme.subtitle1.merge(TextStyle(fontSize: 15)),
+                      widget.hashtags,
+                      style: Theme.of(context).textTheme.subtitle1.merge(TextStyle(fontSize: 13, color: Colors.blue)),
                     ),
                   ),
-                ],
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height/40,
-              ),
-            ]
-        )
+                ),
+                Expanded(
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width/40,
+                      ),
+                      FlatButton(
+                        padding: null,
+                        child: Row(
+                          children: [
+                            Icon(AntDesign.star, color: widget.stars.contains(MyApp.user.uid) ? Theme.of(context).buttonColor : Colors.blueGrey,),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width/40,
+                            ),
+                            Text(
+                              widget.stars!=null ? widget.stars.length.toString() : '0',
+                              style: Theme.of(context).textTheme.subtitle1.merge(TextStyle(fontSize: 15)),
+                            ),
+                          ],
+                        ),
+                        onPressed: widget.stars.contains(MyApp.user.uid) ? ()async{
+                          setState(() {
+                            widget.stars.remove(MyApp.user.uid);
+                          });
+                          await Provider.of<FirestoreService>(context, listen: false).incrementStar(widget.postId, widget.stars);
+                        }: ()async{
+                          setState(() {
+                            widget.stars.add(MyApp.user.uid);
+                          });
+                          await Provider.of<FirestoreService>(context, listen: false).incrementStar(widget.postId, widget.stars);
+                        },
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: EdgeInsets.only(right: MediaQuery.of(context).size.width/25),
+                          child: Text(
+                            widget.description,
+                            style: Theme.of(context).textTheme.subtitle1.merge(TextStyle(fontSize: 15)),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height/40,
+                ),
+              ]
+          )
+      ),
     );
   }
 
