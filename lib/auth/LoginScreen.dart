@@ -1,6 +1,7 @@
 import 'package:connectify/auth/LandingScreen.dart';
 import 'package:connectify/main.dart';
 import 'package:connectify/nav/Navigation.dart';
+import 'package:connectify/services/FirestoreService.dart';
 import 'package:connectify/services/FirebaseAuthService.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -178,8 +179,14 @@ class LoginScreenState extends State<LoginScreen>{
                       });
                       MyApp.user = await Provider.of<FirebaseAuthService>(context, listen: false).signInWithEmailAndPassword(email.text.trim(), password.text.trim());
                     }
-                    if(MyApp.user!=null) Navigator.pushAndRemoveUntil(context, PageTransition(type: PageTransitionType.leftToRightWithFade, child: Navigation()), (Route<dynamic> route) => false);
-                    setState(() {
+                    if(MyApp.user!=null) {
+                      MyApp.current = await Provider.of<FirestoreService>(context, listen: false).getUser(MyApp.user.uid);
+                      Navigator.pushAndRemoveUntil(context, PageTransition(
+                          type: PageTransitionType.leftToRightWithFade,
+                          child: Navigation()), (Route<
+                          dynamic> route) => false);
+                    }
+                      setState(() {
                       _inAsyncCall = false;
                     });
                     },
