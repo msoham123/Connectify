@@ -27,7 +27,7 @@ dependencies:
   page_transition:
   simple_animations:
   provider:
-  custom_navigation_bar:
+  custom_navigation_bar: 0.6.0
   flutter_icons:
   material_dialogs:
   modal_progress_hud:
@@ -36,6 +36,12 @@ dependencies:
   cloud_firestore: 0.14.0
   flutter_typeahead: 1.9.1
   introduction_screen: 1.0.9
+  animations:
+  pull_to_refresh: ^1.6.3
+  dropbox_client: 0.7.1
+  path_provider: 1.6.24
+  file_picker: 2.1.4
+  uuid:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
