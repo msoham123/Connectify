@@ -1,7 +1,6 @@
 import 'package:connectify/auth/SchoolScreen.dart';
 import 'package:connectify/models/ConnectifyUser.dart';
-import 'package:connectify/nav/Navigation.dart';
-import 'package:connectify/services/DatabaseService.dart';
+import 'package:connectify/services/FirestoreService.dart';
 import 'package:connectify/services/FirebaseAuthService.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -233,8 +232,10 @@ class SignUpScreenState extends State<SignUpScreen>{
                         saved: [],
                         groups: [],
                         notifications: [],
+                        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHL03nqSptOCTMXb8ym6QffVTfjk2C14HS-w&usqp=CAU',
+                        startups: [],
                       );
-                      response = await Provider.of<DatabaseService>(context, listen: false).createUser(MyApp.user.uid, user);
+                      response = await Provider.of<FirestoreService>(context, listen: false).createUser(MyApp.user.uid, user);
                     }
                     if(MyApp.user!=null && response==true) {
                       MyApp.current = user;
