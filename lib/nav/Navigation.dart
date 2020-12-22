@@ -1,8 +1,12 @@
-import 'package:connectify/auth/IntroSliderScreen.dart';
-import 'package:connectify/widgets/NavigationBar.dart';
+import 'package:animations/animations.dart';
+import 'package:connectify/nav/HomeScreen.dart';
+import 'package:connectify/nav/ProfileScreen.dart';
+import 'package:connectify/services/Dropbox.dart';
+import 'package:connectify/widgets/DropBoxTest.dart';
+import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 
 class Navigation extends StatefulWidget{
   @override
@@ -15,24 +19,99 @@ class Navigation extends StatefulWidget{
 
 class NavigationState extends State<Navigation>{
 
+  int index = 0;
 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBody: true,
-      bottomNavigationBar: NavigationBar(),
-      body: Container(
-        child: Center(
-          child: FlatButton(
-            child: Text("Reset"),
-            onPressed: ()=> Navigator.push(context, PageTransition(type: PageTransitionType.leftToRightWithFade, child: IntroSliderScreen())),
-
-            // onPressed: ()=> Navigator.pushAndRemoveUntil(context, PageTransition(type: PageTransitionType.leftToRightWithFade, child: Navigation()), (Route<dynamic> route) => false),
+      bottomNavigationBar: CustomNavigationBar(
+        selectedColor: Theme.of(context).buttonColor,
+        strokeColor: Theme.of(context).buttonColor,
+        unSelectedColor: Colors.grey[600],
+        backgroundColor: Theme.of(context).backgroundColor,
+        items: [
+          CustomNavigationBarItem(
+            icon: Center(
+              child: Icon(
+                AntDesign.home,
+                size: 25,
+              ),
+            ),
           ),
+          CustomNavigationBarItem(
+            icon: Center(
+              child: Icon(
+                AntDesign.CodeSandbox,
+                size: 25,
+              ),
+            ),
+          ),
+          CustomNavigationBarItem(
+            icon: Center(
+              child: Icon(
+                AntDesign.message1,
+                size: 25,
+              ),
+            ),
+          ),
+          CustomNavigationBarItem(
+            icon: Center(
+              child: Icon(
+                AntDesign.search1,
+                size: 25,
+              ),
+            ),
+          ),
+          CustomNavigationBarItem(
+            icon: Center(
+              child: Icon(
+                AntDesign.user,
+                size: 25,
+              ),
+            ),
+          ),
+        ],
+        currentIndex: index,
+        onTap: (index) {
+          setState(() {
+            this.index = index;
+          });
+        },
+      ),
+      body: PageTransitionSwitcher(
+        duration: Duration(milliseconds: 250),
+        transitionBuilder: (widget, anim1, anim2) {
+          return FadeScaleTransition(
+            animation: anim1,
+            child: widget,
+          );
+        },
+        child: IndexedStack(
+          index: index,
+          children: [
+            HomePage(),
+            DropBoxTest(),
+            Container(color: Colors.blue,),
+            Container(color: Colors.yellow,),
+            ProfilePage(),
+          ],
         ),
       ),
     );
   }
+
+
+
+  // Container(
+  // child: Center(
+  // child: FlatButton(
+  // child: Text("Reset"),
+  // onPressed: ()=> Navigator.push(context, PageTransition(type: PageTransitionType.leftToRightWithFade, child: IntroSliderScreen())),
+  //
+  // // onPressed: ()=> Navigator.pushAndRemoveUntil(context, PageTransition(type: PageTransitionType.leftToRightWithFade, child: Navigation()), (Route<dynamic> route) => false),
+  // ),
+  // ),
+  // ),
 
 }
