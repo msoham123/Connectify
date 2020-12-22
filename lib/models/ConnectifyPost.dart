@@ -7,8 +7,9 @@ class ConnectifyPost{
   List<String> stars;
   ScrollController _controller = ScrollController();
   DateTime datePublished;
+  bool isImage;
 
-  ConnectifyPost({this.description,this.uid, this.path, this.comments, this.stars, this.datePublished, this.hashtags});
+  ConnectifyPost({this.description,this.uid, this.path, this.comments, this.stars, this.datePublished, this.hashtags, this.isImage});
 
   factory ConnectifyPost.fromJSON(Map<String, dynamic> data){
     data = data ?? {};
@@ -19,7 +20,8 @@ class ConnectifyPost{
       comments: data['comments'].cast<String,String>(),
       stars: data['stars'].cast<String>(),
       datePublished: (data['datePublished'] as Timestamp).toDate(),
-      hashtags: data['hashtags']
+      hashtags: data['hashtags'],
+      isImage: data['isImage'],
     );
   }
 
@@ -31,6 +33,7 @@ class ConnectifyPost{
     'comments': instance.comments,
     'stars': instance.stars,
     'datePublished': instance.datePublished,
-    'hashtags': instance.hashtags
+    'hashtags': instance.hashtags,
+    'isImage': instance.isImage
   };
 }
