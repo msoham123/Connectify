@@ -21,8 +21,22 @@ class SchoolScreenState extends State<SchoolScreen>{
 
   bool  _inAsyncCall = false;
   ScrollController _controller = ScrollController();
-  String _school = 'Search For School', _state = 'Search For State';
+  bool _school = false, _state = false;
+  TextEditingController school = TextEditingController(), state = TextEditingController();
   int _index = 0;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    school.dispose();
+    state.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,6 +73,13 @@ class SchoolScreenState extends State<SchoolScreen>{
                   width: MediaQuery.of(context).size.width>800 ? MediaQuery.of(context).size.width/4 :  MediaQuery.of(context).size.width/1.2,
                   child: TypeAheadField<String>(
                     textFieldConfiguration: TextFieldConfiguration(
+                      controller: state,
+                      onChanged: (value){
+                        state.text = value;
+                        setState(() {
+                          _state = false;
+                        });
+                      },
                       style: TextStyle(
                           color: Color(0xFFF234253),
                           fontWeight: FontWeight.bold),
@@ -73,7 +94,7 @@ class SchoolScreenState extends State<SchoolScreen>{
                         border: InputBorder.none,
                         fillColor: Colors.white,
                         hoverColor: Color(0xFF094074),
-                        hintText: _state,
+                        hintText: 'Search For State',
                         hintStyle: Theme.of(context).textTheme.subtitle2,
                       ),
                     ),
@@ -90,8 +111,9 @@ class SchoolScreenState extends State<SchoolScreen>{
                       );
                     },
                     onSuggestionSelected: (suggestion) {
+                      state.text = suggestion;
                       setState(() {
-                        _state = suggestion;
+                        _state = true;
                       });
                     },
                   ),
@@ -112,8 +134,9 @@ class SchoolScreenState extends State<SchoolScreen>{
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10))
                     ),
-                    onPressed: () {
-                      if(_state != 'Search For State') setState(() {
+                    disabledColor: Colors.grey,
+                    onPressed: !_state ? null: () {
+                      setState(() {
                         _index = 1;
                       });
                     },
@@ -149,6 +172,13 @@ class SchoolScreenState extends State<SchoolScreen>{
                   width: MediaQuery.of(context).size.width>800 ? MediaQuery.of(context).size.width/4 :  MediaQuery.of(context).size.width/1.2,
                   child: TypeAheadField<String>(
                     textFieldConfiguration: TextFieldConfiguration(
+                      controller: school,
+                      onChanged: (value){
+                        school.text = value;
+                        setState(() {
+                          _school = false;
+                        });
+                      },
                       style: TextStyle(
                           color: Color(0xFFF234253),
                           fontWeight: FontWeight.bold),
@@ -163,12 +193,12 @@ class SchoolScreenState extends State<SchoolScreen>{
                         border: InputBorder.none,
                         fillColor: Colors.white,
                         hoverColor: Color(0xFF094074),
-                        hintText: _school,
+                        hintText: 'Search For School',
                         hintStyle: Theme.of(context).textTheme.subtitle2,
                       ),
                     ),
                     suggestionsCallback: (pattern) async {
-                      return await Provider.of<FirestoreService>(context, listen: false).getSchools(_state);
+                      return await Provider.of<FirestoreService>(context, listen: false).getSchools(state.text);
                     },
                     itemBuilder: (context, suggestion) {
                       return ListTile(
@@ -179,9 +209,11 @@ class SchoolScreenState extends State<SchoolScreen>{
                         ),
                       );
                     },
+
                     onSuggestionSelected: (suggestion) {
+                      school.text = suggestion;
                       setState(() {
-                        _school = suggestion;
+                        _school = true;
                       });
                     },
                   ),
@@ -198,16 +230,17 @@ class SchoolScreenState extends State<SchoolScreen>{
                   width: MediaQuery.of(context).size.width/1.2,
                   height: MediaQuery.of(context).size.height/14,
                   child: FlatButton(
+                    disabledColor: Colors.grey,
                     child: Text("Confirm", style: Theme.of(context).textTheme.button,),
                     color: Theme.of(context).buttonColor,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10))
                     ),
-                    onPressed: () async{
+                    onPressed: !_school ? null : () async{
                       setState(() {
                         _inAsyncCall = true;
                       });
-                      bool response = await Provider.of<FirestoreService>(context, listen: false).addToSchool(_state, _school, MyApp.user.uid);
+                      bool response = await Provider.of<FirestoreService>(context, listen: false).addToSchool(state.text, school.text, MyApp.user.uid);
                       if(response){
                         setState(() {
                           _inAsyncCall = false;
