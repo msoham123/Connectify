@@ -1,13 +1,13 @@
-
-
 import 'package:connectify/main.dart';
-import 'package:connectify/services/DatabaseService.dart';
+import 'package:connectify/services/FirestoreService.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:material_dialogs/material_dialogs.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
+import 'package:page_transition/page_transition.dart';
+import 'IntroSliderScreen.dart';
 
 class SchoolScreen extends StatefulWidget{
   @override
@@ -78,7 +78,7 @@ class SchoolScreenState extends State<SchoolScreen>{
                       ),
                     ),
                     suggestionsCallback: (pattern) async {
-                      return await Provider.of<DatabaseService>(context, listen: false).getStates();
+                      return await Provider.of<FirestoreService>(context, listen: false).getStates();
                     },
                     itemBuilder: (context, suggestion) {
                       return ListTile(
@@ -168,7 +168,7 @@ class SchoolScreenState extends State<SchoolScreen>{
                       ),
                     ),
                     suggestionsCallback: (pattern) async {
-                      return await Provider.of<DatabaseService>(context, listen: false).getSchools(_state);
+                      return await Provider.of<FirestoreService>(context, listen: false).getSchools(_state);
                     },
                     itemBuilder: (context, suggestion) {
                       return ListTile(
@@ -207,11 +207,12 @@ class SchoolScreenState extends State<SchoolScreen>{
                       setState(() {
                         _inAsyncCall = true;
                       });
-                      bool response = await Provider.of<DatabaseService>(context, listen: false).addToSchool(_state, _school, MyApp.user.uid);
+                      bool response = await Provider.of<FirestoreService>(context, listen: false).addToSchool(_state, _school, MyApp.user.uid);
                       if(response){
                         setState(() {
                           _inAsyncCall = false;
                         });
+                        Navigator.pushAndRemoveUntil(context, PageTransition(type: PageTransitionType.leftToRightWithFade, child: IntroSliderScreen()), (Route<dynamic> route) => false);
                       }else{
                         Dialogs.materialDialog(
                           msg: 'Could not add to school. Please try again.',
