@@ -57,5 +57,16 @@
               <string></string>
           </dict>
     </array>
+    <key>NSCameraUsageDescription</key>
+        <string>Camera access is needed in order to make posts with media from the camera</string>
+     <key>NSPhotoLibraryUsageDescription</key>
+        <string>Library access is needed in order to make posts with media from the library</string>
+     <key>NSMicrophoneUsageDescription</key>
+        <string>Microphone access is needed in order to make posts with audio from the device</string>
+     <key>NSAppTransportSecurity</key>
+     <dict>
+       <key>NSAllowsArbitraryLoads</key>
+       <true/>
+     </dict>
 </dict>
 </plist>
