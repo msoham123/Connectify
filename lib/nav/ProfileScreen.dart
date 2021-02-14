@@ -5,6 +5,7 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 import '../main.dart';
 
 
@@ -160,6 +161,13 @@ class _ProfilePageState extends State<ProfilePage> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                             color: Theme.of(context).buttonColor,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey,
+                                offset: Offset(0.0, 1.0), //(x,y)
+                                blurRadius: 2.0,
+                              ),
+                            ],
                           ),
                           child: Padding(
                             padding: EdgeInsets.all(MediaQuery.of(context).size.width/30),
@@ -183,11 +191,19 @@ class _ProfilePageState extends State<ProfilePage> {
                           child: TabBar(
                             indicatorWeight: 4,
                             indicatorColor: Theme.of(context).buttonColor,
-                            labelColor: Theme.of(context).buttonColor,
+                            unselectedLabelColor: Theme.of(context).buttonColor,
+                            labelColor: Colors.white,
                             tabs: [
                               Tab(text: "Posts", ),
                               Tab(text: "Startups",),
                             ],
+                            indicator: RectangularIndicator(
+                              topLeftRadius: 10,
+                              topRightRadius: 10,
+                              bottomLeftRadius: 10,
+                              bottomRightRadius: 10,
+                              color: Theme.of(context).buttonColor
+                            ),
                           ),
                         )
                     ),

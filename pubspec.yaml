@@ -44,6 +44,7 @@ dependencies:
   uuid: 2.2.2
   image_picker: 0.6.7+17
   better_player: 0.0.37
+  tab_indicator_styler: 1.0.0
 
 
   # The following adds the Cupertino Icons font to your application.
