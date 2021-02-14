@@ -17,6 +17,7 @@ class Post extends StatefulWidget{
   DateTime datePublished;
   bool isImage;
 
+
   Post({this.description,this.uid, this.imageUrl, this.comments, this.stars, this.datePublished,this.hashtags, this.postId, this.isImage});
 
 
@@ -33,15 +34,27 @@ class PostState extends State<Post>{
  bool _inAsyncCall = true;
  double milliseconds;
  String time = "";
+ BetterPlayerController _betterPlayerController;
 
  @override
   void initState() {
     _loadUser();
+    if(!widget.isImage){
+      BetterPlayerDataSource betterPlayerDataSource = BetterPlayerDataSource(
+          BetterPlayerDataSourceType.NETWORK,
+          widget.imageUrl);
+      _betterPlayerController = BetterPlayerController(BetterPlayerConfiguration(
+        aspectRatio: 3/2,
+
+      ),
+          betterPlayerDataSource: betterPlayerDataSource);
+    }
     super.initState();
  }
 
  @override
   void dispose() {
+   _betterPlayerController.dispose();
     super.dispose();
   }
 
@@ -172,9 +185,8 @@ class PostState extends State<Post>{
                   height: MediaQuery.of(context).size.height/3.5,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
-                    child: BetterPlayer.network(widget.imageUrl, betterPlayerConfiguration: BetterPlayerConfiguration(
-                      aspectRatio: 3 / 2,
-                    ),
+                    child: BetterPlayer(
+                      controller: _betterPlayerController,
                     ),
                   ),
                 ),

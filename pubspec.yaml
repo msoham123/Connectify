@@ -23,8 +23,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_svg: 0.19.2+1
-  page_transition: 1.1.7+3
+  flutter_svg: 0.19.1
+  page_transition: 1.1.7
   simple_animations: 2.4.2
   provider: 4.3.2+3
   custom_navigation_bar: 0.6.0
@@ -37,7 +37,7 @@ dependencies:
   flutter_typeahead: 1.9.1
   introduction_screen: 1.0.9
   animations: 1.1.2
-  pull_to_refresh: ^1.6.3
+  pull_to_refresh: 1.6.3
   dropbox_client: 0.7.1
   path_provider: 1.6.24
   file_picker: 2.1.4
@@ -48,7 +48,7 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.1
+  cupertino_icons: 1.0.0
 
 dev_dependencies:
   flutter_test:
