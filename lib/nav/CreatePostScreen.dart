@@ -156,8 +156,13 @@ class CreatePostPageState extends State<CreatePostPage>{
             style: Theme.of(context).textTheme.subtitle1.merge(TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
           ),
           centerTitle: true,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios, color: Theme.of(context).textTheme.button.color,),
+            onPressed: (){
+              Navigator.pop(context);
+            },
+          ),
           backgroundColor: Theme.of(context).buttonColor,
-          automaticallyImplyLeading: true,
         ),
         backgroundColor: Theme.of(context).backgroundColor,
         body: Stack(
@@ -244,6 +249,7 @@ class CreatePostPageState extends State<CreatePostPage>{
                       ),
                       width: MediaQuery.of(context).size.width>800 ? MediaQuery.of(context).size.width/4 :  MediaQuery.of(context).size.width/1.2,
                       child: TextField(
+                        keyboardType: TextInputType.text,
                         controller: description,
                         style: TextStyle(
                             color: Color(0xFFF234253),
@@ -279,6 +285,7 @@ class CreatePostPageState extends State<CreatePostPage>{
                       ),
                       width: MediaQuery.of(context).size.width>800 ? MediaQuery.of(context).size.width/4 :  MediaQuery.of(context).size.width/1.2,
                       child: TextField(
+                        keyboardType: TextInputType.text,
                         controller: hashtags,
                         style: TextStyle(
                             color: Color(0xFFF234253),
