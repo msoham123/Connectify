@@ -69,7 +69,7 @@ class FirestoreService {
   Future<List<List<dynamic>>> getPosts()async{
     List<ConnectifyPost> list = [];
     List<String> postID = [];
-    await _db.collection("posts").get().then((snapshot){
+    await _db.collection("posts").orderBy("datePublished", descending: false).get().then((snapshot){
       for(int i = snapshot.docs.length-1; i>=0; i-- ){
         list.add(ConnectifyPost.fromJSON(snapshot.docs[i].data()));
         postID.add(snapshot.docs[i].id);
