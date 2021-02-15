@@ -1,12 +1,16 @@
+import 'package:connectify/screens/SettingsScreen.dart';
+import 'package:connectify/services/DarkNotifier.dart';
 import 'package:connectify/services/FirestoreService.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 import '../main.dart';
+import 'CreatePostScreen.dart';
 
 
 
@@ -35,11 +39,16 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
           centerTitle: true,
           backgroundColor: Theme.of(context).buttonColor,
+          leading: IconButton(
+            icon: Icon(AntDesign.setting, color: Theme.of(context).textTheme.button.color,),
+            onPressed: (){
+              Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeftWithFade, child: SettingsPage()));
+            },
+          ),
           actions: [
             IconButton(
               icon: Icon(AntDesign.edit, color: Theme.of(context).textTheme.button.color,),
               onPressed: (){
-
               },
             ),
           ],
@@ -191,8 +200,8 @@ class _ProfilePageState extends State<ProfilePage> {
                           child: TabBar(
                             indicatorWeight: 4,
                             indicatorColor: Theme.of(context).buttonColor,
-                            unselectedLabelColor: Theme.of(context).buttonColor,
-                            labelColor: Colors.white,
+                            unselectedLabelColor: Provider.of<DarkNotifier>(context).isDarkMode ? Colors.white : Colors.black,
+                            labelColor: Theme.of(context).textTheme.button.color,
                             tabs: [
                               Tab(text: "Posts", ),
                               Tab(text: "Startups",),
