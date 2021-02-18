@@ -1,11 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 
 class ConnectifyPost{
   String description, uid, path, hashtags;
   Map<String, String> comments;
   List<String> stars;
-  ScrollController _controller = ScrollController();
   DateTime datePublished;
   bool isImage;
 

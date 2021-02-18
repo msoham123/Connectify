@@ -15,6 +15,11 @@ class _SettingsPageState extends State<SettingsPage> {
   TextEditingController feedback = TextEditingController();
   bool darkMode = false, analytics = true;
 
+  void dispose(){
+    super.dispose();
+    _controller.dispose();
+    feedback.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

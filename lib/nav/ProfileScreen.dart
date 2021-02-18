@@ -10,7 +10,6 @@ import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 import '../main.dart';
-import 'CreatePostScreen.dart';
 
 
 
@@ -25,6 +24,11 @@ class _ProfilePageState extends State<ProfilePage> {
   RefreshController _refreshController = RefreshController();
   bool _inAsyncCall = false;
 
+  void dispose(){
+    super.dispose();
+    _controller.dispose();
+    _refreshController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
