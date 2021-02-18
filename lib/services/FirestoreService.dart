@@ -1,10 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectify/models/ConnectifyPost.dart';
 import 'package:connectify/models/ConnectifyUser.dart';
+import 'package:connectify/widgets/Post.dart';
+import 'package:flutter/cupertino.dart';
+
+import 'Dropbox.dart';
 
 class FirestoreService {
 
   final FirebaseFirestore _db = FirebaseFirestore.instance;
+  DropBox box = DropBox();
 
   /// Get a stream of a single document
   // Stream<ConnectifyUser> streamUsers(String id) {
@@ -14,6 +19,50 @@ class FirestoreService {
   //       .snapshots()
   //       .map((snapshot) => ConnectifyUser.fromMap(snapshot.data()));
   // }
+
+  Future<List<Widget>> getPostSearch(String search, double height) async{
+    List<Widget> output = [];
+    List<ConnectifyPost> list = [];
+    List<String> postID = [];
+    await box.loginWithAccessToken();
+    await box.listFolder("");
+    await _db.collection("posts").get().then((snapshot) => {
+      for(int i = snapshot.docs.length-1; i>=0; i--){
+          if(snapshot.docs[i].data()['description'].toLowerCase().contains(search.toLowerCase()) || snapshot.docs[i].data()['hashtags'].toLowerCase().contains(search.toLowerCase())){
+            list.add(ConnectifyPost.fromJSON(snapshot.docs[i].data())),
+            postID.add(snapshot.docs[i].id),
+          }
+      }});
+    for(int i = 0; i<list.length;i++){
+      output.add(
+          Post(
+            description: list[i].description,
+            uid: list[i].uid,
+            imageUrl: await box.getTemporaryLink(list[i].path),
+            stars: list[i].stars,
+            comments: list[i].comments,
+            datePublished: list[i].datePublished,
+            hashtags: list[i].hashtags,
+            postId: postID[i],
+            isImage: list[i].isImage,
+          ),
+      );
+      output.add(SizedBox(height: height));
+    }
+    return output;
+  }
+
+  Future<List<List<dynamic>>> getPosts()async{
+    List<ConnectifyPost> list = [];
+    List<String> postID = [];
+    await _db.collection("posts").orderBy("datePublished", descending: false).get().then((snapshot){
+      for(int i = snapshot.docs.length-1; i>=0; i-- ){
+        list.add(ConnectifyPost.fromJSON(snapshot.docs[i].data()));
+        postID.add(snapshot.docs[i].id);
+      }
+    });
+    return [list,postID];
+  }
 
 
   Future<ConnectifyUser> getUser(String id){
@@ -66,17 +115,7 @@ class FirestoreService {
   }
 
 
-  Future<List<List<dynamic>>> getPosts()async{
-    List<ConnectifyPost> list = [];
-    List<String> postID = [];
-    await _db.collection("posts").orderBy("datePublished", descending: false).get().then((snapshot){
-      for(int i = snapshot.docs.length-1; i>=0; i-- ){
-        list.add(ConnectifyPost.fromJSON(snapshot.docs[i].data()));
-        postID.add(snapshot.docs[i].id);
-      }
-    });
-    return [list,postID];
-  }
+
 
   /// Write data
   Future<bool> createUser(String id, ConnectifyUser user) async{

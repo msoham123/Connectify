@@ -2,6 +2,7 @@ import 'package:animations/animations.dart';
 import 'package:connectify/auth/SchoolScreen.dart';
 import 'package:connectify/nav/HomeScreen.dart';
 import 'package:connectify/nav/ProfileScreen.dart';
+import 'package:connectify/nav/SearchScreen.dart';
 import 'package:connectify/services/Dropbox.dart';
 import 'package:connectify/widgets/DropBoxTest.dart';
 import 'package:custom_navigation_bar/custom_navigation_bar.dart';
@@ -95,7 +96,7 @@ class NavigationState extends State<Navigation>{
             HomePage(),
             Container(color: Colors.blue,),
             Container(color: Colors.green,),
-            Container(color: Colors.yellow,),
+            SearchPage(),
             ProfilePage(),
           ],
         ),

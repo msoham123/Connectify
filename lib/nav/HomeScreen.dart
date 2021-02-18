@@ -1,6 +1,3 @@
-
-
-import 'dart:io';
 import 'package:connectify/models/ConnectifyPost.dart';
 import 'package:connectify/services/FirestoreService.dart';
 import 'package:flutter_icons/flutter_icons.dart';
