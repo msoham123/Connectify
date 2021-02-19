@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:better_player/better_player.dart';
+import 'package:connectify/models/ConnectifyStartup.dart';
 import 'package:connectify/services/FirestoreService.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:material_dialogs/material_dialogs.dart';
@@ -15,31 +16,22 @@ import 'package:uuid/uuid.dart';
 
 import '../main.dart';
 
-class CreatePostPage extends StatefulWidget{
+class CreateStartupPage extends StatefulWidget{
   @override
   State<StatefulWidget> createState() {
-    return CreatePostPageState();
+    return CreateStartupPageState();
   }
 }
 
-class CreatePostPageState extends State<CreatePostPage>{
+class CreateStartupPageState extends State<CreateStartupPage>{
 
   ScrollController _controller = ScrollController();
-  TextEditingController description = TextEditingController(), hashtags = TextEditingController();
+  TextEditingController description = TextEditingController(), title = TextEditingController(), url = TextEditingController();
   DropBox box = DropBox();
   File file;
   bool _inAsyncCall = false;
   bool isImage = true;
-
-  Future _takeVideo() async {
-    var image = await ImagePicker().getVideo(source: ImageSource.camera);
-    if(image != null) {
-      setState(() {
-        file = File(image.path);
-        isImage = false;
-      });
-    }
-  }
+  
 
   Future _takeImage() async {
     var image = await ImagePicker().getImage(source: ImageSource.camera);
@@ -47,19 +39,6 @@ class CreatePostPageState extends State<CreatePostPage>{
       setState(() {
         file = File(image.path);
         isImage = true;
-      });
-    }
-  }
-
-  Future _pickVideo() async{
-    FilePickerResult result = await FilePicker.platform.pickFiles(
-      type: FileType.video,
-      allowCompression: true,
-    );
-    if(result != null) {
-      setState(() {
-        file = File(result.files.single.path);
-        isImage = false;
       });
     }
   }
@@ -80,66 +59,47 @@ class CreatePostPageState extends State<CreatePostPage>{
 
   void _showPhotoOptions() {
     Dialogs.bottomMaterialDialog(
-        color: Theme.of(context).backgroundColor,
-        title: 'Pick Image/Video',
-        context: context,
-        msg: '',
-        actions: [
-          Column(
-            children: <Widget>[
-              Column(
-                children: [
-                  FlatButton(
-                    textColor: Colors.black,
-                    child: Text("Take Image",
-                        style: Theme.of(context).textTheme.headline1),
-                    onPressed: () {
-                      _takeImage();
-                      Navigator.pop(context);
-                    },
-                  ),
-                  FlatButton(
-                    textColor: Colors.black,
-                    child: Text("Pick Image",
-                        style: Theme.of(context).textTheme.headline1),
-                    onPressed: () async{
-                      _pickImage();
-                      Navigator.pop(context);
-                    },
-                  ),
-                  FlatButton(
-                    textColor: Colors.black,
-                    child: Text("Take Video",
-                        style: Theme.of(context).textTheme.headline1),
-                    onPressed: () {
-                      _takeVideo();
-                      Navigator.pop(context);
-                    },
-                  ),
-                  FlatButton(
-                    textColor: Colors.black,
-                    child: Text("Pick Video",
-                        style: Theme.of(context).textTheme.headline1),
-                    onPressed: () async{
-                      _pickVideo();
-                      Navigator.pop(context);
-                    },
-                  ),
-
-                  FlatButton(
-                    color: Colors.red,
-                    textColor: Colors.black,
-                    child: Text("Close",
-                        style: Theme.of(context).textTheme.headline1),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ],
+      color: Theme.of(context).backgroundColor,
+      title: 'Pick Image/Video',
+      context: context,
+      msg: '',
+      actions: [
+        Column(
+          children: <Widget>[
+            Column(
+              children: [
+                FlatButton(
+                  textColor: Colors.black,
+                  child: Text("Take Image",
+                      style: Theme.of(context).textTheme.headline1),
+                  onPressed: () {
+                    _takeImage();
+                    Navigator.pop(context);
+                  },
+                ),
+                FlatButton(
+                  textColor: Colors.black,
+                  child: Text("Pick Image",
+                      style: Theme.of(context).textTheme.headline1),
+                  onPressed: () async{
+                    _pickImage();
+                    Navigator.pop(context);
+                  },
+                ),
+                FlatButton(
+                  color: Colors.red,
+                  textColor: Colors.black,
+                  child: Text("Close",
+                      style: Theme.of(context).textTheme.headline1),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            ),
+          ],
+        ),
+      ],
 
     );
   }
@@ -152,7 +112,7 @@ class CreatePostPageState extends State<CreatePostPage>{
         appBar: AppBar(
           elevation: 0,
           title: Text(
-            'Create Post',
+            'Create Startup',
             style: Theme.of(context).textTheme.subtitle1.merge(TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
           ),
           centerTitle: true,
@@ -189,7 +149,7 @@ class CreatePostPageState extends State<CreatePostPage>{
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
                           color: Colors.green,
                         ),
                         width: MediaQuery.of(context).size.width/1.2,
@@ -201,7 +161,7 @@ class CreatePostPageState extends State<CreatePostPage>{
                               AntDesign.upload,
                               color: Theme.of(context).textTheme.button.color,
                             ),
-                            Text("Pick Image/Video", style: Theme.of(context).textTheme.button,)
+                            Text("Pick Image", style: Theme.of(context).textTheme.button,)
                           ],
                         ),
                       ),
@@ -209,12 +169,10 @@ class CreatePostPageState extends State<CreatePostPage>{
                   ) : Column(
                     children: [
 
-                      isImage ? Center(
+                      Center(
                         child: Image.file(file, fit: BoxFit.cover,  width: MediaQuery.of(context).size.width/1.2,
                           height: MediaQuery.of(context).size.height/4,),
-                      ): BetterPlayer.file(file.path, betterPlayerConfiguration: BetterPlayerConfiguration(
-                        aspectRatio: 16 / 9,
-                      ),),
+                      ),
 
                       SizedBox(
                         height: MediaQuery.of(context).size.height/40,
@@ -223,15 +181,15 @@ class CreatePostPageState extends State<CreatePostPage>{
                       SizedBox(
                         width: MediaQuery.of(context).size.width/1.2,
                         child: FlatButton(
-                          disabledColor: Colors.grey,
-                          child: Text("Choose Different Image/Video", style: Theme.of(context).textTheme.button,),
-                          color: Colors.blue,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(10))
-                          ),
-                          onPressed: ()async{
-                           _showPhotoOptions();
-                          }),
+                            disabledColor: Colors.grey,
+                            child: Text("Choose Different Image/Video", style: Theme.of(context).textTheme.button,),
+                            color: Colors.blue,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(10))
+                            ),
+                            onPressed: ()async{
+                              _showPhotoOptions();
+                            }),
                       ),
 
                     ],
@@ -249,6 +207,43 @@ class CreatePostPageState extends State<CreatePostPage>{
                       ),
                       width: MediaQuery.of(context).size.width>800 ? MediaQuery.of(context).size.width/4 :  MediaQuery.of(context).size.width/1.2,
                       child: TextField(
+                        keyboardType: TextInputType.text,
+                        controller: title,
+                        style: TextStyle(
+                            color: Color(0xFFF234253),
+                            fontWeight: FontWeight.bold),
+                        obscureText: false,
+                        decoration: InputDecoration(
+                          icon: IconButton(
+                            enableFeedback: false,
+                            onPressed: ()=>null,
+                            icon: Icon(AntDesign.tag),
+                            color: Colors.blueGrey,
+                            hoverColor: Colors.white30,
+                          ),
+                          border: InputBorder.none,
+                          fillColor: Colors.white,
+                          hoverColor: Color(0xFF094074),
+                          hintText: "Title",
+                          hintStyle: Theme.of(context).textTheme.subtitle2,
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height/40,
+                  ),
+
+                  Center(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        color: Colors.grey[400],
+                      ),
+                      width: MediaQuery.of(context).size.width>800 ? MediaQuery.of(context).size.width/4 :  MediaQuery.of(context).size.width/1.2,
+                      child: TextField(
+                        maxLines: 5,
                         keyboardType: TextInputType.text,
                         controller: description,
                         style: TextStyle(
@@ -286,7 +281,7 @@ class CreatePostPageState extends State<CreatePostPage>{
                       width: MediaQuery.of(context).size.width>800 ? MediaQuery.of(context).size.width/4 :  MediaQuery.of(context).size.width/1.2,
                       child: TextField(
                         keyboardType: TextInputType.text,
-                        controller: hashtags,
+                        controller: url,
                         style: TextStyle(
                             color: Color(0xFFF234253),
                             fontWeight: FontWeight.bold),
@@ -295,16 +290,14 @@ class CreatePostPageState extends State<CreatePostPage>{
                           icon: IconButton(
                             enableFeedback: false,
                             onPressed: ()=>null,
-                            icon: Icon(FontAwesome.hashtag),
+                            icon: Icon(AntDesign.link),
                             color: Colors.blueGrey,
                             hoverColor: Colors.white30,
                           ),
                           border: InputBorder.none,
                           fillColor: Colors.white,
                           hoverColor: Color(0xFF094074),
-                          hintText: "#Connectify, #2021",
-                          labelText: "Hashtags",
-                          labelStyle: Theme.of(context).textTheme.subtitle2,
+                          hintText: "URL",
                           hintStyle: Theme.of(context).textTheme.subtitle2,
                         ),
                       ),
@@ -326,26 +319,24 @@ class CreatePostPageState extends State<CreatePostPage>{
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.all(Radius.circular(10))
                         ),
-                        onPressed: file!=null && description.text!=null && description.text.length>5 ? () async{
+                        onPressed: file!=null && description.text!=null && description.text.length>5 && title.text!=null && url.text!=null ?  () async{
                           if(file != null) {
                             setState(() {
                               _inAsyncCall = true;
                             });
                             String path = await box.uploadPostImage(file);
-                            print(path);
-                            ConnectifyPost post = ConnectifyPost(
-                              uid: MyApp.user.uid,
-                              description: description.text,
-                              path: path,
-                              comments: {},
-                              stars: [],
-                              datePublished: DateTime.now(),
-                              hashtags: hashtags.text,
-                              isImage: isImage
+                            ConnectifyStartup startup = ConnectifyStartup(
+                                title: title.text,
+                                uid: MyApp.user.uid,
+                                description: description.text,
+                                path: path,
+                                link: url.text.trim(),
+                                comments: {},
                             );
                             Uuid id = Uuid();
-                            String postId = id.v4();
-                            bool result = await Provider.of<FirestoreService>(context, listen: false).createPost(postId, post);
+                            String startupId = id.v4();
+                            bool result = await Provider.of<FirestoreService>(context, listen: false).createStartup(startupId, startup);
+                            await Provider.of<FirestoreService>(context, listen: false).addStartupToProfile(MyApp.user.uid, startupId, MyApp.current.posts);
                             setState(() {
                               _inAsyncCall=false;
                             });
@@ -353,20 +344,20 @@ class CreatePostPageState extends State<CreatePostPage>{
                               Navigator.pop(context);
                             }else{
                               Dialogs.materialDialog(
-                                msg: 'Could not create post. Please try again.',
-                                title: "Error",
-                                color: Colors.white,
-                                context: context,
-                                actions: [
-                                  FlatButton(
-                                    child: Text("Close", style: Theme.of(context).textTheme.button,),
-                                    color: Theme.of(context).buttonColor,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.all(Radius.circular(10))
+                                  msg: 'Could not create post. Please try again.',
+                                  title: "Error",
+                                  color: Colors.white,
+                                  context: context,
+                                  actions: [
+                                    FlatButton(
+                                      child: Text("Close", style: Theme.of(context).textTheme.button,),
+                                      color: Theme.of(context).buttonColor,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(Radius.circular(10))
+                                      ),
+                                      onPressed: ()=> Navigator.pop(context),
                                     ),
-                                    onPressed: ()=> Navigator.pop(context),
-                                  ),
-                                ]
+                                  ]
                               );
                             }
                           }
