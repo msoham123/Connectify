@@ -10,12 +10,12 @@ import 'package:provider/provider.dart';
 
 class Post extends StatefulWidget{
 
-  String description, uid, imageUrl, hashtags, postId;
-  Map<String, String> comments;
-  List<String> stars;
-  ScrollController _controller = ScrollController();
-  DateTime datePublished;
-  bool isImage;
+  final String description, uid, imageUrl, hashtags, postId;
+  final Map<String, String> comments;
+  final List<String> stars;
+  // final ScrollController _controller = ScrollController();
+  final DateTime datePublished;
+  final bool isImage;
 
 
   Post({this.description,this.uid, this.imageUrl, this.comments, this.stars, this.datePublished,this.hashtags, this.postId, this.isImage});
@@ -41,7 +41,7 @@ class PostState extends State<Post>{
     _loadUser();
     if(!widget.isImage){
       BetterPlayerDataSource betterPlayerDataSource = BetterPlayerDataSource(
-          BetterPlayerDataSourceType.NETWORK,
+          BetterPlayerDataSourceType.network,
           widget.imageUrl);
       _betterPlayerController = BetterPlayerController(BetterPlayerConfiguration(
         aspectRatio: 3/2,
@@ -54,7 +54,7 @@ class PostState extends State<Post>{
 
  @override
   void dispose() {
-   _betterPlayerController.dispose();
+   if(!widget.isImage) _betterPlayerController.dispose();
     super.dispose();
   }
 
