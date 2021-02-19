@@ -1,4 +1,5 @@
 import 'package:connectify/auth/LandingScreen.dart';
+import 'package:connectify/screens/SplashScreen.dart';
 import 'package:connectify/services/DarkNotifier.dart';
 import 'package:connectify/services/Dropbox.dart';
 import 'package:connectify/services/FirestoreService.dart';
@@ -7,14 +8,19 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 import 'models/ConnectifyUser.dart';
+import 'package:path_provider/path_provider.dart' as p;
 
 
 Future<void> main() async{
   WidgetsFlutterBinding.ensureInitialized();
+  final dir = await p.getApplicationDocumentsDirectory();
+  Hive.init(dir.path);
   await Firebase.initializeApp();
   await DropBox().initDropbox();
+  await Hive.openBox('myBox');
   runApp(
     ChangeNotifierProvider<DarkNotifier>(
         create: (context) => DarkNotifier(),
@@ -31,7 +37,7 @@ class MyApp extends StatelessWidget {
   static User user;
   static ConnectifyUser current;
 
-
+  static var box = Hive.box('myBox');
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +59,7 @@ class MyApp extends StatelessWidget {
             darkTheme: AppTheme.dark,
             debugShowCheckedModeBanner: false,
             // Add the locale here
-            home: LandingScreen(),
+            home: SplashPage(),
             themeMode: appState.isDarkMode ? ThemeMode.dark : ThemeMode.light,
           ),
         );

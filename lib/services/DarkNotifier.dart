@@ -1,3 +1,4 @@
+import 'package:connectify/main.dart';
 import 'package:flutter/material.dart';
 
 class DarkNotifier extends ChangeNotifier {
@@ -7,8 +8,7 @@ class DarkNotifier extends ChangeNotifier {
   void updateTheme(bool isDarkMode) {
     this.isDarkMode = isDarkMode;
     notifyListeners();
+    MyApp.box.put("darkMode", isDarkMode);
   }
-
-
 
 }
