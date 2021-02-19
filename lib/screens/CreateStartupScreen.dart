@@ -336,7 +336,7 @@ class CreateStartupPageState extends State<CreateStartupPage>{
                             Uuid id = Uuid();
                             String startupId = id.v4();
                             bool result = await Provider.of<FirestoreService>(context, listen: false).createStartup(startupId, startup);
-                            await Provider.of<FirestoreService>(context, listen: false).addStartupToProfile(MyApp.user.uid, startupId, MyApp.current.posts);
+                            await Provider.of<FirestoreService>(context, listen: false).addStartupToProfile(MyApp.user.uid, startupId, MyApp.current.startups);
                             setState(() {
                               _inAsyncCall=false;
                             });

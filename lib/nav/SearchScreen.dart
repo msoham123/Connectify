@@ -16,7 +16,7 @@ class _SearchPageState extends State<SearchPage> {
   TextEditingController _search = TextEditingController();
   bool _inAsyncCall = false;
   int _index = 0;
-  List<Widget> _postList = [];
+  List<Widget> _postList = [], _startupList = [];
 
   void dispose(){
     super.dispose();
@@ -68,12 +68,16 @@ class _SearchPageState extends State<SearchPage> {
                 ),
                 child: TextField(
                   onSubmitted: (value) {
-                    if(_index==0){
-                      if(_search.value.text == null || _search.value.text == '') return null;
-                      else{
+                      if(_search.value.text == null || _search.value.text == '') {
+                        setState(() {
+                          _startupList.clear();
+                          _postList.clear();
+                        });
+                        return null;
+                      } else{
                         getPostSearch(_search.value.text);
+                        getStartupSearch(_search.value.text);
                       }
-                    }
                   },
                   controller: _search,
                   decoration: InputDecoration(
@@ -135,7 +139,13 @@ class _SearchPageState extends State<SearchPage> {
 
                       if(_inAsyncCall) Center(child: CircularProgressIndicator()),
 
-                      if(!_inAsyncCall && _index==0) (_postList.length==0) ? Center(child: Text("No Posts Found", style: Theme.of(context).textTheme.button,)) : Column(children: _postList,)
+                      if(!_inAsyncCall && _index==0) (_postList.length==0 && _search.text.isNotEmpty) ?
+                      Center(child: Text("No Posts Found", style: TextStyle(color: Theme.of(context).buttonColor==Color.fromRGBO(242, 114, 138, 1)
+                          ? Colors.black : Colors.white))) : Column(children: _postList,),
+
+                      if(!_inAsyncCall && _index==1) (_startupList.length==0 && _search.text.isNotEmpty) ?
+                      Center(child: Text("No Startups Found", style: TextStyle(color: Theme.of(context).buttonColor==Color.fromRGBO(242, 114, 138, 1)
+                          ? Colors.black : Colors.white))) : Column(children: _startupList,),
 
 
                     ],
@@ -157,6 +167,20 @@ class _SearchPageState extends State<SearchPage> {
     _postList = [];
     if(search!=""){
       _postList = await Provider.of<FirestoreService>(context, listen: false).getPostSearch(search, MediaQuery.of(context).size.height/20,);
+    }
+    setState(() {
+      _inAsyncCall = false;
+    });
+  }
+
+
+  Future<void> getStartupSearch (String search) async{
+    setState(() {
+      _inAsyncCall = true;
+    });
+    _startupList.clear();
+    if(search!=""){
+      _startupList = await Provider.of<FirestoreService>(context, listen: false).getStartupSearch(search, MediaQuery.of(context).size.height/20,);
     }
     setState(() {
       _inAsyncCall = false;

@@ -3,6 +3,7 @@ import 'package:connectify/models/ConnectifyPost.dart';
 import 'package:connectify/models/ConnectifyStartup.dart';
 import 'package:connectify/models/ConnectifyUser.dart';
 import 'package:connectify/widgets/Post.dart';
+import 'package:connectify/widgets/Startup.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'Dropbox.dart';
@@ -47,6 +48,36 @@ class FirestoreService {
             postId: postID[i],
             isImage: list[i].isImage,
           ),
+      );
+      output.add(SizedBox(height: height));
+    }
+    return output;
+  }
+
+  Future<List<Widget>> getStartupSearch(String search, double height) async{
+    List<Widget> output = [];
+    List<ConnectifyStartup> list = [];
+    List<String> startupID = [];
+    await box.loginWithAccessToken();
+    await box.listFolder("");
+    await _db.collection("startups").get().then((snapshot) => {
+      for(int i = snapshot.docs.length-1; i>=0; i--){
+        if(snapshot.docs[i].data()['description'].toLowerCase().contains(search.toLowerCase()) || snapshot.docs[i].data()['title'].toLowerCase().contains(search.toLowerCase())){
+          list.add(ConnectifyStartup.fromJSON(snapshot.docs[i].data())),
+          startupID.add(snapshot.docs[i].id),
+        }
+      }});
+    for(int i = 0; i<list.length;i++){
+      output.add(
+        Startup(
+          description: list[i].description,
+          uid: list[i].uid,
+          imageUrl: await box.getTemporaryLink(list[i].path),
+          comments: list[i].comments,
+          startupId: startupID[i],
+          title: list[i].title,
+          link: list[i].link,
+        ),
       );
       output.add(SizedBox(height: height));
     }
@@ -117,6 +148,32 @@ class FirestoreService {
           hashtags: list[i].hashtags,
           postId: postID[i],
           isImage: list[i].isImage,
+        ),
+      );
+      output.add(SizedBox(height: height));
+    }
+    return output;
+  }
+
+  Future<List<Widget>> getProfileStartups(List<String> startups, double height) async{
+    List<ConnectifyStartup> list = [];
+    List<String> startupId = [];
+    List<Widget> output = [];
+    for(int j = startups.length-1; j>=0; j-- ){
+      var snapshot = await  _db.collection("startups").doc(startups[j]).get();
+      list.add(ConnectifyStartup.fromJSON(snapshot.data()));
+      startupId.add(startups[j]);
+    }
+    for(int i = 0; i<list.length;i++){
+      output.add(
+        Startup(
+          description: list[i].description,
+          uid: list[i].uid,
+          imageUrl: await box.getTemporaryLink(list[i].path),
+          comments: list[i].comments,
+          title: list[i].title,
+          link: list[i].link,
+          startupId: startupId[i],
         ),
       );
       output.add(SizedBox(height: height));

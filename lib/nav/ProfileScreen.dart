@@ -22,14 +22,15 @@ class _ProfilePageState extends State<ProfilePage> {
 
   ScrollController _controller = ScrollController();
   RefreshController _refreshController = RefreshController();
-  bool _inAsyncCall = false, _postLoading = true;
-  List<Widget> _postlist = [];
+  bool _inAsyncCall = false, _postLoading = true, _startupLoading = true;
+  List<Widget> _postList = [], _startupList = [];
   int _index = 0;
 
   void initState(){
     super.initState();
     Future.delayed(Duration.zero, () {
       _loadPosts();
+      _loadStartups();
     });
   }
 
@@ -40,11 +41,22 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   void _loadPosts()async{
-    _postlist.clear();
+    _postList.clear();
+    setState(() {
+      _startupLoading = true;
+    });
+    _startupList = await Provider.of<FirestoreService>(context, listen: false).getProfileStartups(MyApp.current.startups,  MediaQuery.of(context).size.height/20);
+    setState(() {
+      _startupLoading = false;
+    });
+  }
+
+  void _loadStartups ()async{
+    _startupList.clear();
     setState(() {
       _postLoading = true;
     });
-    _postlist = await Provider.of<FirestoreService>(context, listen: false).getProfilePosts(MyApp.current.posts,  MediaQuery.of(context).size.height/20);
+    _postList = await Provider.of<FirestoreService>(context, listen: false).getProfilePosts(MyApp.current.posts,  MediaQuery.of(context).size.height/20);
     setState(() {
       _postLoading = false;
     });
@@ -80,11 +92,11 @@ class _ProfilePageState extends State<ProfilePage> {
         backgroundColor: Theme.of(context).backgroundColor,
         body: Stack(
           children: [
-            Container(
-              height: MediaQuery.of(context).size.height/6,
-              width: MediaQuery.of(context).size.width,
-              color: Theme.of(context).buttonColor,
-            ),
+            // Container(
+            //   height: MediaQuery.of(context).size.height/6,
+            //   width: MediaQuery.of(context).size.width,
+            //   color: Theme.of(context).buttonColor,
+            // ),
             CupertinoScrollbar(
               controller: _controller,
               child: SmartRefresher(
@@ -105,6 +117,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     _postLoading = true;
                   });
                   _loadPosts();
+                  _loadStartups();
                   MyApp.current = await Provider.of<FirestoreService>(context, listen: false).getUser(MyApp.user.uid);
                   _refreshController.refreshCompleted();
                   setState(() {
@@ -121,7 +134,6 @@ class _ProfilePageState extends State<ProfilePage> {
                     SizedBox(
                       height: MediaQuery.of(context).size.height/40,
                     ),
-
 
                     Center(
                       child: Container(
@@ -189,7 +201,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
 
                     SizedBox(
-                      height: MediaQuery.of(context).size.height/30,
+                      height: MediaQuery.of(context).size.height/50,
                     ),
 
                     Center(
@@ -259,7 +271,10 @@ class _ProfilePageState extends State<ProfilePage> {
 
                     if(_postLoading==true) Center(child: CircularProgressIndicator(),),
 
-                    if(_postLoading==false && _index==0 ) Column(children: _postlist,),
+                    if(_postLoading==false && _index==0 ) Column(children: _postList,),
+
+                    if(_startupLoading==false && _index==1 ) Column(children: _startupList,),
+
 
                   ],
                 ),
