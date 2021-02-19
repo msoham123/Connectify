@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectify/models/ConnectifyPost.dart';
+import 'package:connectify/models/ConnectifyStartup.dart';
 import 'package:connectify/models/ConnectifyUser.dart';
 import 'package:connectify/widgets/Post.dart';
 import 'package:flutter/cupertino.dart';
@@ -51,6 +52,24 @@ class FirestoreService {
     }
     return output;
   }
+  
+  Future<void> addPostToProfile(String uid, String postId, List<String> posts) async{
+    posts.add(postId);
+    await _db.collection("users").doc(uid).update(
+      {
+        "posts": posts,
+      }
+    );
+  }
+
+  Future<void> addStartupToProfile(String uid, String startupId, List<String> startups) async{
+    startups.add(startupId);
+    await _db.collection("users").doc(uid).update(
+        {
+          "startups": startups,
+        }
+    );
+  }
 
   Future<List<List<dynamic>>> getPosts()async{
     List<ConnectifyPost> list = [];
@@ -64,6 +83,46 @@ class FirestoreService {
     return [list,postID];
   }
 
+  Future<List<List<dynamic>>> getStartups()async{
+    List<ConnectifyStartup> list = [];
+    List<String> startupId = [];
+    await _db.collection("startups").get().then((snapshot){
+      for(int i = snapshot.docs.length-1; i>=0; i-- ){
+        list.add(ConnectifyStartup.fromJSON(snapshot.docs[i].data()));
+        startupId.add(snapshot.docs[i].id);
+      }
+    });
+    return [list, startupId];
+  }
+
+
+  Future<List<Widget>> getProfilePosts(List<String> posts, double height) async{
+    List<ConnectifyPost> list = [];
+    List<String> postID = [];
+    List<Widget> output = [];
+    for(int j = posts.length-1; j>=0; j-- ){
+      var snapshot = await  _db.collection("posts").doc(posts[j]).get();
+      list.add(ConnectifyPost.fromJSON(snapshot.data()));
+      postID.add(posts[j]);
+    }
+    for(int i = 0; i<list.length;i++){
+      output.add(
+        Post(
+          description: list[i].description,
+          uid: list[i].uid,
+          imageUrl: await box.getTemporaryLink(list[i].path),
+          stars: list[i].stars,
+          comments: list[i].comments,
+          datePublished: list[i].datePublished,
+          hashtags: list[i].hashtags,
+          postId: postID[i],
+          isImage: list[i].isImage,
+        ),
+      );
+      output.add(SizedBox(height: height));
+    }
+    return output;
+  }
 
   Future<ConnectifyUser> getUser(String id){
     return _db
@@ -130,6 +189,13 @@ class FirestoreService {
         .collection('posts')
         .doc(postId)
         .set(post.toJSON(post)).then((value) => true, onError:(value)=> false);
+  }
+
+  Future<bool> createStartup(String startupId, ConnectifyStartup startup) async{
+    return await _db
+        .collection('startups')
+        .doc(startupId)
+        .set(startup.toJSON(startup)).then((value) => true, onError:(value)=> false);
   }
 
   Future<void> incrementStar(String postId, List<String> current)async {

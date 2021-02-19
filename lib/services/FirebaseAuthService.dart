@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:connectify/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class FirebaseAuthService {
@@ -22,6 +23,8 @@ class FirebaseAuthService {
       email: email,
       password: password,
     );
+    MyApp.box.put("email", email);
+    MyApp.box.put("password", password);
     return _userFromFirebase(result.user);
   }
 
