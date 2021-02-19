@@ -1,6 +1,7 @@
 import 'package:connectify/auth/LandingScreen.dart';
 import 'package:connectify/nav/Navigation.dart';
 import 'package:connectify/services/DarkNotifier.dart';
+import 'package:connectify/services/Dropbox.dart';
 import 'package:connectify/services/FirebaseAuthService.dart';
 import 'package:connectify/services/FirestoreService.dart';
 import 'package:flutter/material.dart';
@@ -40,6 +41,9 @@ class SplashPageState extends State<SplashPage>{
   }
 
   void loadProfile()async{
+    DropBox box = DropBox();
+    await box.loginWithAccessToken();
+    await box.listFolder("");
     if(MyApp.box.get('email')!=null) {
       MyApp.user =
       await Provider.of<FirebaseAuthService>(context, listen: false)
@@ -47,6 +51,7 @@ class SplashPageState extends State<SplashPage>{
           MyApp.box.get('email'), MyApp.box.get("password"));
       if(MyApp.user!=null) {
         MyApp.current = await Provider.of<FirestoreService>(context, listen: false).getUser(MyApp.user.uid);
+        MyApp.current.image = await box.getTemporaryLink(MyApp.current.image);
         Future.delayed(Duration.zero, () {
           Navigator.pushAndRemoveUntil(context, PageTransition(
               type: PageTransitionType.fade,

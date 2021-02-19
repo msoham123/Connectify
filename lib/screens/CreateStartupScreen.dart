@@ -60,7 +60,7 @@ class CreateStartupPageState extends State<CreateStartupPage>{
   void _showPhotoOptions() {
     Dialogs.bottomMaterialDialog(
       color: Theme.of(context).backgroundColor,
-      title: 'Pick Image/Video',
+      title: 'Pick Image',
       context: context,
       msg: '',
       actions: [
@@ -182,7 +182,7 @@ class CreateStartupPageState extends State<CreateStartupPage>{
                         width: MediaQuery.of(context).size.width/1.2,
                         child: FlatButton(
                             disabledColor: Colors.grey,
-                            child: Text("Choose Different Image/Video", style: Theme.of(context).textTheme.button,),
+                            child: Text("Choose Different Image", style: Theme.of(context).textTheme.button,),
                             color: Colors.blue,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.all(Radius.circular(10))
@@ -324,7 +324,7 @@ class CreateStartupPageState extends State<CreateStartupPage>{
                             setState(() {
                               _inAsyncCall = true;
                             });
-                            String path = await box.uploadPostImage(file);
+                            String path = await box.uploadStartupImage(file);
                             ConnectifyStartup startup = ConnectifyStartup(
                                 title: title.text,
                                 uid: MyApp.user.uid,

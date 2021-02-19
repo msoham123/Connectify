@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:connectify/services/Dropbox.dart';
 
 class ConnectifyUser{
   String username, email, password, school, description;
@@ -10,7 +11,8 @@ class ConnectifyUser{
 
   ConnectifyUser({this.username, this.email, this.password, this.school, this.description, this.following, this.followers, this.posts, this.messages, this.dateAccountCreated, this.saved, this.groups, this.startups, this.notifications, this.image});
 
-  factory ConnectifyUser.fromJSON(Map<String, dynamic> data){
+  factory ConnectifyUser.fromJSON(Map<String, dynamic> data) {
+
     data = data ?? {};
     return ConnectifyUser(
       username: data['username'] as String,
@@ -26,10 +28,12 @@ class ConnectifyUser{
       groups: data['groups'].cast<String>(),
       saved: data['saved'].cast<String>(),
       notifications: data['notifications'].cast<String>(),
-      image: data['image'] as String,
+      image:  data['image'],
       startups: data['startups'].cast<String>(),
     );
   }
+
+
 
 
   Map<String, dynamic> toJSON(ConnectifyUser instance) => <String, dynamic>{

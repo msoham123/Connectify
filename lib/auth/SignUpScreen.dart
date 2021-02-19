@@ -232,7 +232,7 @@ class SignUpScreenState extends State<SignUpScreen>{
                         saved: [],
                         groups: [],
                         notifications: [],
-                        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHL03nqSptOCTMXb8ym6QffVTfjk2C14HS-w&usqp=CAU',
+                        image: '/profileImages/profile-2398782_1280.jpg',
                         startups: [],
                       );
                       response = await Provider.of<FirestoreService>(context, listen: false).createUser(MyApp.user.uid, user);

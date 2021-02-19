@@ -79,6 +79,18 @@ class DropBox{
     return '/postImages/${file.path.split("/")[file.path.split("/").length-1]}';
   }
 
+  Future uploadProfileImage(File file) async {
+    // var tempDir = await getTemporaryDirectory();
+    // var filepath = '${tempDir.path}/test_upload.txt';
+    // File(filepath).writeAsStringSync(
+    //     'contents.. from ' + (Platform.isIOS ? 'iOS' : 'Android') + '\n');
+    final result =
+    await Dropbox.upload(file.path, '/profileImages/${file.path.split("/")[file.path.split("/").length-1]}', (uploaded, total) {
+      print('progress $uploaded / $total');
+    });
+    return '/postImages/${file.path.split("/")[file.path.split("/").length-1]}';
+  }
+
   Future uploadStartupImage(File file) async {
     // var tempDir = await getTemporaryDirectory();
     // var filepath = '${tempDir.path}/test_upload.txt';

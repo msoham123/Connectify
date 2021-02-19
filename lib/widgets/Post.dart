@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:better_player/better_player.dart';
 import 'package:connectify/main.dart';
 import 'package:connectify/models/ConnectifyUser.dart';
+import 'package:connectify/services/Dropbox.dart';
 import 'package:connectify/services/FirestoreService.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -35,10 +36,13 @@ class PostState extends State<Post>{
  double milliseconds;
  String time = "";
  BetterPlayerController _betterPlayerController;
+ DropBox box = DropBox();
+
 
  @override
   void initState() {
     _loadUser();
+
     if(!widget.isImage){
       BetterPlayerDataSource betterPlayerDataSource = BetterPlayerDataSource(
           BetterPlayerDataSourceType.network,
@@ -60,7 +64,10 @@ class PostState extends State<Post>{
 
 
   void _loadUser()async{
+    await box.loginWithAccessToken();
+    await box.listFolder("");
     user = await Provider.of<FirestoreService>(context, listen: false).getUser(widget.uid);
+    user.image = await box.getTemporaryLink(user.image);
     milliseconds = (DateTime.now().millisecondsSinceEpoch-widget.datePublished.millisecondsSinceEpoch)+0.0;
     time = milliseconds<60000 ? '${(milliseconds/1000).ceil()} seconds ago' : milliseconds < (3.6 * pow(10, 6)) ?
     '${(milliseconds/60000).ceil()} minutes ago' : milliseconds<(8.64 * pow(10, 7)) ?

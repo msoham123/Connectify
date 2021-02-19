@@ -107,6 +107,23 @@ class FirestoreService {
     );
   }
 
+  Future<void> updateProfileImage(String path, String uid) async{
+    await _db.collection("users").doc(uid).update(
+        {
+          "image" : path
+        }
+    );
+  }
+
+  Future<void> updateProfileInfo(String username, String description, String uid) async{
+    await _db.collection("users").doc(uid).update(
+        {
+          "username" : username,
+          "description" : description,
+        }
+    );
+  }
+
   Future<void> addStartupToProfile(String uid, String startupId, List<String> startups) async{
     startups.add(startupId);
     await _db.collection("users").doc(uid).update(

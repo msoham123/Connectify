@@ -1,5 +1,7 @@
+import 'package:connectify/screens/EditProfileScreen.dart';
 import 'package:connectify/screens/SettingsScreen.dart';
 import 'package:connectify/services/DarkNotifier.dart';
+import 'package:connectify/services/Dropbox.dart';
 import 'package:connectify/services/FirestoreService.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -25,9 +27,11 @@ class _ProfilePageState extends State<ProfilePage> {
   bool _inAsyncCall = false, _postLoading = true, _startupLoading = true;
   List<Widget> _postList = [], _startupList = [];
   int _index = 0;
+  DropBox box = DropBox();
 
   void initState(){
     super.initState();
+
     Future.delayed(Duration.zero, () {
       _loadPosts();
       _loadStartups();
@@ -41,6 +45,8 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   void _loadPosts()async{
+    await box.loginWithAccessToken();
+    await box.listFolder("");
     _postList.clear();
     setState(() {
       _startupLoading = true;
@@ -54,11 +60,11 @@ class _ProfilePageState extends State<ProfilePage> {
   void _loadStartups ()async{
     _startupList.clear();
     setState(() {
-      _postLoading = true;
+      _startupLoading = true;
     });
     _postList = await Provider.of<FirestoreService>(context, listen: false).getProfilePosts(MyApp.current.posts,  MediaQuery.of(context).size.height/20);
     setState(() {
-      _postLoading = false;
+      _startupLoading = false;
     });
   }
 
@@ -85,6 +91,20 @@ class _ProfilePageState extends State<ProfilePage> {
             IconButton(
               icon: Icon(AntDesign.edit, color: Theme.of(context).textTheme.button.color,),
               onPressed: (){
+                Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeftWithFade, child: EditProfilePage(callback:
+                () async{
+                  setState(() {
+                    _inAsyncCall = true;
+                  });
+                  _loadPosts();
+                  _loadStartups();
+                  MyApp.current = await Provider.of<FirestoreService>(context, listen: false).getUser(MyApp.user.uid);
+                  MyApp.current.image = await box.getTemporaryLink(MyApp.current.image);
+                  setState(() {
+                    _inAsyncCall = false;
+                  });
+                },
+                username: MyApp.current.username, description: MyApp.current.description, imageUrl: MyApp.current.image,)));
               },
             ),
           ],
@@ -114,11 +134,11 @@ class _ProfilePageState extends State<ProfilePage> {
                 onRefresh: ()async{
                   setState(() {
                     _inAsyncCall = true;
-                    _postLoading = true;
                   });
                   _loadPosts();
                   _loadStartups();
                   MyApp.current = await Provider.of<FirestoreService>(context, listen: false).getUser(MyApp.user.uid);
+                  MyApp.current.image = await box.getTemporaryLink(MyApp.current.image);
                   _refreshController.refreshCompleted();
                   setState(() {
                     _inAsyncCall = false;
