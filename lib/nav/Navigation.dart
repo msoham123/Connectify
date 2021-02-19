@@ -1,15 +1,12 @@
 import 'package:animations/animations.dart';
-import 'package:connectify/auth/SchoolScreen.dart';
 import 'package:connectify/nav/HomeScreen.dart';
 import 'package:connectify/nav/ProfileScreen.dart';
 import 'package:connectify/nav/SearchScreen.dart';
-import 'package:connectify/services/Dropbox.dart';
-import 'package:connectify/widgets/DropBoxTest.dart';
+import 'package:connectify/nav/StartupScreen.dart';
 import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:page_transition/page_transition.dart';
 
 class Navigation extends StatefulWidget{
   @override
@@ -94,7 +91,7 @@ class NavigationState extends State<Navigation>{
           index: index,
           children: [
             HomePage(),
-            Container(color: Colors.blue,),
+            StartupPage(),
             Container(color: Colors.green,),
             SearchPage(),
             ProfilePage(),

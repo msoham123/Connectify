@@ -1,6 +1,5 @@
 import 'package:connectify/services/DarkNotifier.dart';
 import 'package:connectify/services/FirestoreService.dart';
-import 'package:connectify/widgets/Post.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -136,7 +135,7 @@ class _SearchPageState extends State<SearchPage> {
 
                       if(_inAsyncCall) Center(child: CircularProgressIndicator()),
 
-                      if(!_inAsyncCall && _index==0) (_postList.length==0) ? Center(child: Text("No Posts Found")) : Column(children: _postList,)
+                      if(!_inAsyncCall && _index==0) (_postList.length==0) ? Center(child: Text("No Posts Found", style: Theme.of(context).textTheme.button,)) : Column(children: _postList,)
 
 
                     ],
@@ -151,7 +150,7 @@ class _SearchPageState extends State<SearchPage> {
   }
 
 
-  void getPostSearch (String search) async{
+  Future<void> getPostSearch (String search) async{
     setState(() {
       _inAsyncCall = true;
     });

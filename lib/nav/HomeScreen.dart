@@ -2,7 +2,7 @@ import 'package:connectify/models/ConnectifyPost.dart';
 import 'package:connectify/services/FirestoreService.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:provider/provider.dart';
-import 'package:connectify/nav/CreatePostScreen.dart';
+import 'file:///C:/Users/msoha/Desktop/Programming/flutter_applications/connectify/lib/screens/CreatePostScreen.dart';
 import 'package:connectify/services/Dropbox.dart';
 import 'package:connectify/widgets/Post.dart';
 import 'package:flutter/cupertino.dart';
@@ -80,15 +80,6 @@ class HomePageState extends State<HomePage>{
         ),
         centerTitle: true,
         backgroundColor: Theme.of(context).buttonColor,
-        leading: IconButton(
-          icon: Icon(AntDesign.reload1, color: Colors.white,),
-          onPressed: (){
-            setState(() {
-              _inAsyncCall = true;
-            });
-            _loadData();
-          },
-        ),
         actions: [
           IconButton(
             icon: Icon(AntDesign.plus, color: Colors.white,),
@@ -105,28 +96,26 @@ class HomePageState extends State<HomePage>{
             width: MediaQuery.of(context).size.width,
             color: Theme.of(context).buttonColor,
           ),
-          SmartRefresher(
-            header: ClassicHeader(
-              textStyle: Theme.of(context).textTheme.button,
-              failedIcon: Icon(Icons.error, color: Theme.of(context).textTheme.button.color),
-              completeIcon: Icon(Icons.done, color: Theme.of(context).textTheme.button.color),
-              idleIcon: Icon(Icons.arrow_downward, color: Theme.of(context).textTheme.button.color),
-              releaseIcon: Icon(Icons.refresh, color: Theme.of(context).textTheme.button.color),
-            ),
-            primary: true,
-            controller: _refreshController,
-            enablePullDown: true,
-            onRefresh: ()async{
-              setState(() {
-                _inAsyncCall = true;
-              });
-              _loadData();
-              _refreshController.refreshCompleted();
-            },
-            child: !_inAsyncCall ? CupertinoScrollbar(
-              isAlwaysShown: true,
-              controller: _controller,
-              child: ListView(
+          CupertinoScrollbar(
+            controller: _controller,
+            child: SmartRefresher(
+              header: ClassicHeader(
+                textStyle: Theme.of(context).textTheme.button,
+                failedIcon: Icon(Icons.error, color: Theme.of(context).textTheme.button.color),
+                completeIcon: Icon(Icons.done, color: Theme.of(context).textTheme.button.color),
+                idleIcon: Icon(Icons.arrow_downward, color: Theme.of(context).textTheme.button.color),
+                releaseIcon: Icon(Icons.refresh, color: Theme.of(context).textTheme.button.color),
+              ),
+              controller: _refreshController,
+              enablePullDown: true,
+              onRefresh: ()async{
+                setState(() {
+                  _inAsyncCall = true;
+                });
+                _loadData();
+                _refreshController.refreshCompleted();
+              },
+              child: !_inAsyncCall ? ListView(
                 primary: false,
                 physics: BouncingScrollPhysics(),
                 controller: _controller,
@@ -138,8 +127,8 @@ class HomePageState extends State<HomePage>{
                     ),
                   ),
                 ],
-              ),
-            ): Center(child: CircularProgressIndicator()),
+              ): Center(child: CircularProgressIndicator()),
+            ),
           ),
         ],
       ),

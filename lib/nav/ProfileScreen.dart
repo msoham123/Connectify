@@ -22,12 +22,32 @@ class _ProfilePageState extends State<ProfilePage> {
 
   ScrollController _controller = ScrollController();
   RefreshController _refreshController = RefreshController();
-  bool _inAsyncCall = false;
+  bool _inAsyncCall = false, _postLoading = true;
+  List<Widget> _postlist = [];
+  int _index = 0;
+
+  void initState(){
+    super.initState();
+    Future.delayed(Duration.zero, () {
+      _loadPosts();
+    });
+  }
 
   void dispose(){
     super.dispose();
     _controller.dispose();
     _refreshController.dispose();
+  }
+
+  void _loadPosts()async{
+    _postlist.clear();
+    setState(() {
+      _postLoading = true;
+    });
+    _postlist = await Provider.of<FirestoreService>(context, listen: false).getProfilePosts(MyApp.current.posts,  MediaQuery.of(context).size.height/20);
+    setState(() {
+      _postLoading = false;
+    });
   }
 
   @override
@@ -65,31 +85,36 @@ class _ProfilePageState extends State<ProfilePage> {
               width: MediaQuery.of(context).size.width,
               color: Theme.of(context).buttonColor,
             ),
-            SmartRefresher(
-              header: ClassicHeader(
-                textStyle: Theme.of(context).textTheme.button,
-                failedIcon: Icon(Icons.error, color: Theme.of(context).textTheme.button.color),
-                completeIcon: Icon(Icons.done, color: Theme.of(context).textTheme.button.color),
-                idleIcon: Icon(Icons.arrow_downward, color: Theme.of(context).textTheme.button.color),
-                releaseIcon: Icon(Icons.refresh, color: Theme.of(context).textTheme.button.color),
-              ),
-              physics: const AlwaysScrollableScrollPhysics(),
-              primary: true,
-              enablePullDown: true,
-              onRefresh: ()async{
-                setState(() {
-                  _inAsyncCall = true;
-                });
-                MyApp.current = await Provider.of<FirestoreService>(context, listen: false).getUser(MyApp.user.uid);
-                _refreshController.refreshCompleted();
-                setState(() {
-                  _inAsyncCall = false;
-                });
-              },
-              controller: _refreshController,
-              child: CupertinoScrollbar(
-                controller: _controller,
+            CupertinoScrollbar(
+              controller: _controller,
+              child: SmartRefresher(
+                scrollController: _controller,
+                header: ClassicHeader(
+                  textStyle: Theme.of(context).textTheme.button,
+                  failedIcon: Icon(Icons.error, color: Theme.of(context).textTheme.button.color),
+                  completeIcon: Icon(Icons.done, color: Theme.of(context).textTheme.button.color),
+                  idleIcon: Icon(Icons.arrow_downward, color: Theme.of(context).textTheme.button.color),
+                  releaseIcon: Icon(Icons.refresh, color: Theme.of(context).textTheme.button.color),
+                ),
+                // physics: const AlwaysScrollableScrollPhysics(),
+                // primary: true,
+                enablePullDown: true,
+                onRefresh: ()async{
+                  setState(() {
+                    _inAsyncCall = true;
+                    _postLoading = true;
+                  });
+                  _loadPosts();
+                  MyApp.current = await Provider.of<FirestoreService>(context, listen: false).getUser(MyApp.user.uid);
+                  _refreshController.refreshCompleted();
+                  setState(() {
+                    _inAsyncCall = false;
+                  });
+                },
+                controller: _refreshController,
                 child: ListView(
+                  // primary: false,
+                  shrinkWrap: false,
                   controller: _controller,
                   children: [
 
@@ -199,6 +224,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
                     DefaultTabController(
                         length: 2,
+                        initialIndex: _index,
                         child: Padding(
                           padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/30),
                           child: TabBar(
@@ -210,6 +236,11 @@ class _ProfilePageState extends State<ProfilePage> {
                               Tab(text: "Posts", ),
                               Tab(text: "Startups",),
                             ],
+                            onTap: (value){
+                              setState(() {
+                                _index = value;
+                              });
+                            },
                             indicator: RectangularIndicator(
                               topLeftRadius: 10,
                               topRightRadius: 10,
@@ -221,6 +252,14 @@ class _ProfilePageState extends State<ProfilePage> {
                         )
                     ),
 
+
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height/20,
+                    ),
+
+                    if(_postLoading==true) Center(child: CircularProgressIndicator(),),
+
+                    if(_postLoading==false && _index==0 ) Column(children: _postlist,),
 
                   ],
                 ),
