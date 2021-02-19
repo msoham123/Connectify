@@ -94,8 +94,8 @@ class StartupState extends State<Startup>{
                           borderRadius: BorderRadius.all(
                               Radius.circular(10))),
                       onPressed: () {
-                        if(widget.link.contains('http://')) _launchURL(widget.link);
-                        else _launchURL("http://${widget.link}");
+                        if(widget.link.contains('https://')) _launchURL(widget.link);
+                        else _launchURL("https://${widget.link}");
                       },
                     ),
                   ),

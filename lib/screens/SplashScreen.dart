@@ -41,7 +41,6 @@ class SplashPageState extends State<SplashPage>{
 
   void loadProfile()async{
     if(MyApp.box.get('email')!=null) {
-      print(MyApp.box.get('email')+ " " + MyApp.box.get("password"));
       MyApp.user =
       await Provider.of<FirebaseAuthService>(context, listen: false)
           .signInWithEmailAndPassword(

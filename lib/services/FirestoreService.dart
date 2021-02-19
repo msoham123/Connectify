@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:connectify/main.dart';
 import 'package:connectify/models/ConnectifyPost.dart';
 import 'package:connectify/models/ConnectifyStartup.dart';
 import 'package:connectify/models/ConnectifyUser.dart';
@@ -21,6 +22,19 @@ class FirestoreService {
   //       .snapshots()
   //       .map((snapshot) => ConnectifyUser.fromMap(snapshot.data()));
   // }
+
+  Future<bool> sendFeedback(String feedback) async{
+    try{
+      await _db.collection("feedback").add({
+        "feedback" : feedback,
+        "email" : MyApp.current.email,
+        "uid" : MyApp.user.uid,
+      });
+      return true;
+    }catch(e){
+      return false;
+    }
+  }
 
   Future<List<Widget>> getPostSearch(String search, double height) async{
     List<Widget> output = [];

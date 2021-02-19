@@ -1,6 +1,11 @@
+import 'package:connectify/auth/LandingScreen.dart';
 import 'package:connectify/services/DarkNotifier.dart';
+import 'package:connectify/services/FirebaseAuthService.dart';
+import 'package:connectify/services/FirestoreService.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:material_dialogs/material_dialogs.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:xlive_switch/xlive_switch.dart';
 import '../main.dart';
@@ -124,7 +129,15 @@ class _SettingsPageState extends State<SettingsPage> {
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(10))),
-                                  onPressed: () {},
+                                  onPressed: () async {
+                                    await Provider.of<FirebaseAuthService>(context, listen: false).signOut();
+                                    MyApp.box.put("email", null);
+                                    MyApp.box.put("password", null);
+                                    Navigator.pushAndRemoveUntil(context, PageTransition(
+                                        type: PageTransitionType.fade,
+                                        child: LandingScreen()), (Route<
+                                        dynamic> route) => false);
+                                  },
                                 ),
                               ),
                             ],
@@ -248,8 +261,40 @@ class _SettingsPageState extends State<SettingsPage> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(10))
                       ),
-                      onPressed: (){
-
+                      onPressed: () async{
+                        bool b = await Provider.of<FirestoreService>(context, listen: false).sendFeedback(feedback.text);
+                        if(b) Dialogs.materialDialog(
+                            msg: 'Feedback sent!',
+                            title: "Success",
+                            color: Colors.white,
+                            context: context,
+                            actions: [
+                              FlatButton(
+                                child: Text("Close", style: Theme.of(context).textTheme.button,),
+                                color: Theme.of(context).buttonColor,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(Radius.circular(10))
+                                ),
+                                onPressed: ()=> Navigator.pop(context),
+                              ),
+                            ]
+                        );
+                        else Dialogs.materialDialog(
+                            msg: 'Could not send feedback. Please try again.',
+                            title: "Error",
+                            color: Colors.white,
+                            context: context,
+                            actions: [
+                              FlatButton(
+                                child: Text("Close", style: Theme.of(context).textTheme.button,),
+                                color: Theme.of(context).buttonColor,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(Radius.circular(10))
+                                ),
+                                onPressed: ()=> Navigator.pop(context),
+                              ),
+                            ]
+                        );
                       },
                     ),
                   ),
