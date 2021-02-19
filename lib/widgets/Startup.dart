@@ -3,6 +3,7 @@ import 'package:connectify/services/FirestoreService.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Startup extends StatefulWidget{
 
@@ -20,7 +21,6 @@ class Startup extends StatefulWidget{
 }
 
 class StartupState extends State<Startup>{
-
  ConnectifyUser user;
  bool _inAsyncCall = true;
  double milliseconds;
@@ -37,6 +37,13 @@ class StartupState extends State<Startup>{
     super.dispose();
   }
 
+ void _launchURL(String url) async {
+   if (await canLaunch(url)) {
+     await launch(url);
+   } else {
+     throw 'Could not launch $url';
+   }
+ }
 
   void _loadUser()async{
     user = await Provider.of<FirestoreService>(context, listen: false).getUser(widget.uid);
@@ -66,61 +73,6 @@ class StartupState extends State<Startup>{
               SizedBox(
                 height: MediaQuery.of(context).size.height/40,
               ),
-              // SizedBox(
-              //   width: MediaQuery.of(context).size.width,
-              //   child: Row(
-              //     mainAxisAlignment: MainAxisAlignment.start,
-              //     children: [
-              //       SizedBox(
-              //         width: MediaQuery.of(context).size.width/20,
-              //       ),
-              //       Center(
-              //         child: Container(
-              //           height: MediaQuery.of(context).size.height/15,
-              //           width: MediaQuery.of(context).size.height/15,
-              //           decoration: BoxDecoration(
-              //             image: _inAsyncCall ? null: DecorationImage(
-              //                 fit: BoxFit.cover, image: NetworkImage(user.image)),
-              //             borderRadius: BorderRadius.all(Radius.circular(10)),
-              //             color: Theme.of(context).buttonColor,
-              //           ),
-              //         ),
-              //       ),
-              //       SizedBox(
-              //         width: MediaQuery.of(context).size.width/20,
-              //       ),
-              //       Column(
-              //         mainAxisAlignment: MainAxisAlignment.start,
-              //         children: [
-              //           Text(user.username,
-              //             style: Theme.of(context).textTheme.subtitle1.merge(TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
-              //           ),
-              //           Text(
-              //             time,
-              //             style: Theme.of(context).textTheme.subtitle1.merge(TextStyle(fontSize: 15,)),
-              //           ),
-              //         ],
-              //       ),
-              //       Expanded(
-              //         child: SizedBox(
-              //           child: Align(
-              //             alignment: Alignment.centerRight,
-              //             child:  IconButton(
-              //               splashColor: Colors.transparent,
-              //               highlightColor: Colors.transparent,
-              //               icon: Icon(AntDesign.retweet, color: Theme.of(context).textTheme.subtitle1.color,),
-              //               onPressed: (){
-              //               },
-              //             ),
-              //           ),
-              //         ),
-              //       ),
-              //       SizedBox(
-              //         width: MediaQuery.of(context).size.width/20,
-              //       ),
-              //     ],
-              //   ),
-              // ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -141,7 +93,10 @@ class StartupState extends State<Startup>{
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(
                               Radius.circular(10))),
-                      onPressed: () {},
+                      onPressed: () {
+                        if(widget.link.contains('http://')) _launchURL(widget.link);
+                        else _launchURL("http://${widget.link}");
+                      },
                     ),
                   ),
                 ],

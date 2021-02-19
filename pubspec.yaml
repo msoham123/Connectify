@@ -49,6 +49,7 @@ dependencies:
   xlive_switch: 1.0.5
   hive: 1.4.4+1
   hive_flutter: 0.3.1
+  url_launcher: 5.7.10
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
