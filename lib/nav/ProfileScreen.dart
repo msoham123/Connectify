@@ -49,11 +49,11 @@ class _ProfilePageState extends State<ProfilePage> {
     await box.listFolder("");
     _postList.clear();
     setState(() {
-      _startupLoading = true;
+      _postLoading = true;
     });
     _startupList = await Provider.of<FirestoreService>(context, listen: false).getProfileStartups(MyApp.current.startups,  MediaQuery.of(context).size.height/20);
     setState(() {
-      _startupLoading = false;
+      _postLoading = false;
     });
   }
 

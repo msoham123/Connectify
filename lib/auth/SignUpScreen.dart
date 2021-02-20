@@ -1,5 +1,6 @@
 import 'package:connectify/auth/SchoolScreen.dart';
 import 'package:connectify/models/ConnectifyUser.dart';
+import 'package:connectify/services/Dropbox.dart';
 import 'package:connectify/services/FirestoreService.dart';
 import 'package:connectify/services/FirebaseAuthService.dart';
 import 'package:flutter/cupertino.dart';
@@ -217,6 +218,9 @@ class SignUpScreenState extends State<SignUpScreen>{
                       setState(() {
                         _inAsyncCall = true;
                       });
+                      DropBox box = DropBox();
+                      await box.loginWithAccessToken();
+                      await box.listFolder("");
                       MyApp.user = await Provider.of<FirebaseAuthService>(context, listen: false).createUserWithEmailAndPassword(email.text.trim(), password.text.trim());
                       user = ConnectifyUser(
                         username: username.text.trim(),
@@ -235,6 +239,7 @@ class SignUpScreenState extends State<SignUpScreen>{
                         image: '/profileImages/profile-2398782_1280.jpg',
                         startups: [],
                       );
+                      MyApp.current.image = await box.getTemporaryLink(MyApp.current.image);
                       response = await Provider.of<FirestoreService>(context, listen: false).createUser(MyApp.user.uid, user);
                     }
                     if(MyApp.user!=null && response==true) {

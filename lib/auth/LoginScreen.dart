@@ -1,6 +1,7 @@
 import 'package:connectify/auth/LandingScreen.dart';
 import 'package:connectify/main.dart';
 import 'package:connectify/nav/Navigation.dart';
+import 'package:connectify/services/Dropbox.dart';
 import 'package:connectify/services/FirestoreService.dart';
 import 'package:connectify/services/FirebaseAuthService.dart';
 import 'package:flutter/cupertino.dart';
@@ -181,7 +182,11 @@ class LoginScreenState extends State<LoginScreen>{
                       MyApp.user = await Provider.of<FirebaseAuthService>(context, listen: false).signInWithEmailAndPassword(email.text.trim(), password.text.trim());
                     }
                     if(MyApp.user!=null) {
+                      DropBox box = DropBox();
+                      await box.loginWithAccessToken();
+                      await box.listFolder("");
                       MyApp.current = await Provider.of<FirestoreService>(context, listen: false).getUser(MyApp.user.uid);
+                      MyApp.current.image = await box.getTemporaryLink(MyApp.current.image);
                       Navigator.pushAndRemoveUntil(context, PageTransition(
                           type: PageTransitionType.leftToRightWithFade,
                           child: Navigation()), (Route<
@@ -197,52 +202,6 @@ class LoginScreenState extends State<LoginScreen>{
               SizedBox(
                 height: MediaQuery.of(context).size.height/20,
               ),
-
-              SizedBox(
-                width: MediaQuery.of(context).size.width/1.2,
-                height: MediaQuery.of(context).size.height/14,
-                child: FlatButton(
-                  child: Text("Dev", style: Theme.of(context).textTheme.button,),
-                  color: Theme.of(context).buttonColor,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10))
-                  ),
-                  onPressed: () async{
-                      setState(() {
-                        _inAsyncCall = true;
-                      });
-                      MyApp.user = await Provider.of<FirebaseAuthService>(context, listen: false).signInWithEmailAndPassword('msoham123@gmail.com', 'msoham123');
-                    if(MyApp.user!=null) {
-                      MyApp.current = await Provider.of<FirestoreService>(context, listen: false).getUser(MyApp.user.uid);
-                      Navigator.pushAndRemoveUntil(context, PageTransition(
-                          type: PageTransitionType.leftToRightWithFade,
-                          child: Navigation()), (Route<
-                          dynamic> route) => false);
-                    }else{
-                      Dialogs.materialDialog(
-                          msg: 'Could not login. Please try again.',
-                          title: "Error",
-                          color: Colors.white,
-                          context: context,
-                          actions: [
-                            FlatButton(
-                              child: Text("Close", style: Theme.of(context).textTheme.button,),
-                              color: Theme.of(context).buttonColor,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.all(Radius.circular(10))
-                              ),
-                              onPressed: ()=> Navigator.pop(context),
-                            ),
-                          ]
-                      );
-                    }
-                    setState(() {
-                      _inAsyncCall = false;
-                    });
-                  },
-                ),
-              ),
-
 
             ],
           ),

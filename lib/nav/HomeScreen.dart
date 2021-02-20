@@ -19,11 +19,11 @@ class HomePage extends StatefulWidget{
 
 class HomePageState extends State<HomePage>{
 
-  DropBox box = DropBox();
   bool _inAsyncCall = true;
   ScrollController _controller = ScrollController();
   List<Widget> list = [];
   RefreshController _refreshController = RefreshController();
+  DropBox box = DropBox();
 
 
   @override

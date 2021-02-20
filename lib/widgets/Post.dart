@@ -42,7 +42,6 @@ class PostState extends State<Post>{
  @override
   void initState() {
     _loadUser();
-
     if(!widget.isImage){
       BetterPlayerDataSource betterPlayerDataSource = BetterPlayerDataSource(
           BetterPlayerDataSourceType.network,
