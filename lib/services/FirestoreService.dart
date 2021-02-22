@@ -14,6 +14,15 @@ class FirestoreService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
   DropBox box = DropBox();
 
+  Stream<QuerySnapshot> getChat() {
+    return _db.collection("chat").orderBy('timestamp', descending: false)
+        .snapshots();
+  }
+
+  Future<void> deleteChat(String messageId)async{
+    await _db.collection("chat").doc(messageId).delete();
+  }
+
   /// Get a stream of a single document
   // Stream<ConnectifyUser> streamUsers(String id) {
   //   return _db
@@ -22,6 +31,10 @@ class FirestoreService {
   //       .snapshots()
   //       .map((snapshot) => ConnectifyUser.fromMap(snapshot.data()));
   // }
+
+  Future<void> sendMessage(var map) async{
+    await _db.collection("chat").add(map);
+  }
 
   Future<bool> sendFeedback(String feedback) async{
     try{

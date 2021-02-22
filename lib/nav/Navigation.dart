@@ -1,4 +1,5 @@
 import 'package:animations/animations.dart';
+import 'package:connectify/nav/ChatScreen.dart';
 import 'package:connectify/nav/HomeScreen.dart';
 import 'package:connectify/nav/ProfileScreen.dart';
 import 'package:connectify/nav/SearchScreen.dart';
@@ -92,7 +93,7 @@ class NavigationState extends State<Navigation>{
           children: [
             HomePage(),
             StartupPage(),
-            Container(color: Colors.green,),
+            ChatPage(),
             SearchPage(),
             ProfilePage(),
           ],
