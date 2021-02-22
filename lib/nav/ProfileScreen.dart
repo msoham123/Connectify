@@ -242,7 +242,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           child: Padding(
                             padding: EdgeInsets.all(MediaQuery.of(context).size.width/30),
                             child: Text(
-                              MyApp.current.description,
+                              MyApp.current.description=="" ? "No description created yet!" : MyApp.current.description,
                               style: Theme.of(context).textTheme.subtitle1.merge(TextStyle(fontSize: 15, color: Colors.white)),
                             ),
                           ),

@@ -6,13 +6,31 @@ import 'package:connectify/models/ConnectifyUser.dart';
 import 'package:connectify/widgets/Post.dart';
 import 'package:connectify/widgets/Startup.dart';
 import 'package:flutter/cupertino.dart';
-
 import 'Dropbox.dart';
 
 class FirestoreService {
 
   final FirebaseFirestore _db = FirebaseFirestore.instance;
   DropBox box = DropBox();
+
+  Future<void> connect(String uid) async{
+    ConnectifyUser other = await getUser(uid);
+    MyApp.current = await getUser(MyApp.user.uid);
+    ConnectifyUser user = MyApp.current;
+    if(user.following.contains(uid)){
+      other.followers.remove(MyApp.user.uid);
+      user.following.remove(uid);
+    }else{
+      other.followers.add(MyApp.user.uid);
+      user.following.add(uid);
+    }
+    await _db.collection("users").doc(uid).update(
+        other.toJSON(other)
+    );
+    await _db.collection("users").doc(MyApp.user.uid).update(
+        user.toJSON(user)
+    );
+  }
 
   Stream<QuerySnapshot> getChat() {
     return _db.collection("chat").orderBy('timestamp', descending: false)

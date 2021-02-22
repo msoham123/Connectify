@@ -1,4 +1,5 @@
 import 'package:connectify/nav/Navigation.dart';
+import 'package:connectify/screens/SplashScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -30,7 +31,7 @@ class IntroSliderScreenState extends State<IntroSliderScreen>{
                 children: [
                   SizedBox(height: MediaQuery.of(context).size.height/30,),
                   Expanded(child: SvgPicture.asset("assets/images/skills.svg")),
-                  Text("Learn and Enhance Your Skills", style: Theme.of(context).textTheme.button.merge(TextStyle(fontSize: 15))),
+                  Text("Express your Professional Interests", style: Theme.of(context).textTheme.button.merge(TextStyle(fontSize: 15))),
                 ],
               ),
             ),
@@ -64,7 +65,7 @@ class IntroSliderScreenState extends State<IntroSliderScreen>{
                 children: [
                   SizedBox(height: MediaQuery.of(context).size.height/30,),
                   Expanded(child: SvgPicture.asset("assets/images/worktogether.svg")),
-                  Text("Create and Join Startups", style: Theme.of(context).textTheme.button.merge(TextStyle(fontSize: 15))),
+                  Text("Create and Explore Startups", style: Theme.of(context).textTheme.button.merge(TextStyle(fontSize: 15))),
                   Text("Find Opportunities", style: Theme.of(context).textTheme.button.merge(TextStyle(fontSize: 15))),
                 ],
               ),
@@ -95,7 +96,7 @@ class IntroSliderScreenState extends State<IntroSliderScreen>{
         next: Text("Next", style: Theme.of(context).textTheme.button),
         done: Text("Done", style: Theme.of(context).textTheme.button),
         onDone: () {
-          Navigator.pushAndRemoveUntil(context, PageTransition(type: PageTransitionType.leftToRightWithFade, child: Navigation()), (Route<dynamic> route) => false);
+          Navigator.pushAndRemoveUntil(context, PageTransition(type: PageTransitionType.leftToRightWithFade, child: SplashPage()), (Route<dynamic> route) => false);
         },
         dotsDecorator: DotsDecorator(
             size: const Size.square(10.0),

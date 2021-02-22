@@ -1,3 +1,4 @@
+import 'package:connectify/main.dart';
 import 'package:connectify/models/ConnectifyUser.dart';
 import 'package:connectify/services/DarkNotifier.dart';
 import 'package:connectify/services/Dropbox.dart';
@@ -137,69 +138,104 @@ class _ViewProfilePageState extends State<ViewProfilePage> {
                           ),
                         ],
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      child: Column(
                         children: [
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width / 3,
-                            child: Center(
-                              child: Container(
-                                height:
-                                    MediaQuery.of(context).size.height / 8,
-                                width: MediaQuery.of(context).size.height / 8,
-                                decoration: BoxDecoration(
-                                  image: _user.image == null ? null :DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image:  NetworkImage(_user.image)),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10)),
-                                  color: Theme.of(context).buttonColor,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width / 3,
+                                child: Center(
+                                  child: Container(
+                                    height:
+                                        MediaQuery.of(context).size.height / 8,
+                                    width: MediaQuery.of(context).size.height / 8,
+                                    decoration: BoxDecoration(
+                                      image: _user.image == null ? null :DecorationImage(
+                                          fit: BoxFit.cover,
+                                          image:  NetworkImage(_user.image)),
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(10)),
+                                      color: Theme.of(context).buttonColor,
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width / 2,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      _user.username,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .subtitle1
+                                          .merge(TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold)),
+                                    ),
+                                    SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height / 50,
+                                    ),
+                                    Text(
+                                      '${_user.school}',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .subtitle1
+                                          .merge(TextStyle(fontSize: 15)),
+                                    ),
+                                    Text(
+                                      '${_user.followers == null ? 0 : _user.followers.length} connections',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .subtitle1
+                                          .merge(TextStyle(fontSize: 15)),
+                                    ),
+                                    Text(
+                                      '${_user.startups == null ? 0 : _user.startups.length} startups',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .subtitle1
+                                          .merge(TextStyle(fontSize: 15)),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
                           ),
                           SizedBox(
-                            width: MediaQuery.of(context).size.width / 2,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  _user.username,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .subtitle1
-                                      .merge(TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold)),
-                                ),
-                                SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height / 50,
-                                ),
-                                Text(
-                                  '${_user.school}',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .subtitle1
-                                      .merge(TextStyle(fontSize: 15)),
-                                ),
-                                Text(
-                                  '${_user.followers == null ? 0 : _user.followers.length} connections',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .subtitle1
-                                      .merge(TextStyle(fontSize: 15)),
-                                ),
-                                Text(
-                                  '${_user.startups == null ? 0 : _user.startups.length} startups',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .subtitle1
-                                      .merge(TextStyle(fontSize: 15)),
-                                ),
-                              ],
+                            height: MediaQuery.of(context).size.height / 50,
+                          ),
+                          if(widget.uid != MyApp.user.uid )SizedBox(
+                            width: MediaQuery.of(context).size.width / 1.4,
+                            height: MediaQuery.of(context).size.height / 14,
+                            child: FlatButton(
+                              child: Text(
+                                MyApp.current.following.contains(widget.uid)? "Disconnect" : "Connect",
+                                style: Theme.of(context).textTheme.button,
+                              ),
+                              color: Theme.of(context).buttonColor,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(10))),
+                              onPressed: () async {
+                                Provider.of<FirestoreService>(context,listen: false).connect(widget.uid);
+                                if(MyApp.current.following.contains(widget.uid)){
+                                  setState(() {
+                                    _user.followers.remove(MyApp.user.uid);
+                                    MyApp.current.following.remove(widget.uid);
+                                  });
+                                }else{
+                                  setState(() {
+                                    _user.followers.add(MyApp.user.uid);
+                                    MyApp.current.following.add(widget.uid);
+                                  });
+                                }
+                              },
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),

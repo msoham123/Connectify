@@ -239,7 +239,7 @@ class MessageBubble extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
                 child: Text(
                   '$text',
-                  style: Theme.of(context).textTheme.button.merge(TextStyle(fontWeight: FontWeight.w300))
+                  style: Theme.of(context).textTheme.subtitle1.merge(TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white))
                 ),
               ),
             ),

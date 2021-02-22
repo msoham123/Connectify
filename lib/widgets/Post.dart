@@ -144,14 +144,16 @@ class PostState extends State<Post>{
                         width: MediaQuery.of(context).size.width/20,
                       ),
                       Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(user.username,
                             style: Theme.of(context).textTheme.subtitle1.merge(TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
                           ),
-                          Text(
-                            time,
-                            style: Theme.of(context).textTheme.subtitle1.merge(TextStyle(fontSize: 15,)),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              time+"   ",
+                              style: Theme.of(context).textTheme.subtitle1.merge(TextStyle(fontSize: 15,)),
+                            ),
                           ),
                         ],
                       ),
