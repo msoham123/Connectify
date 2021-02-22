@@ -1,6 +1,7 @@
 import 'package:connectify/auth/LandingScreen.dart';
 import 'package:connectify/main.dart';
 import 'package:connectify/nav/Navigation.dart';
+import 'package:connectify/screens/SplashScreen.dart';
 import 'package:connectify/services/Dropbox.dart';
 import 'package:connectify/services/FirestoreService.dart';
 import 'package:connectify/services/FirebaseAuthService.dart';
@@ -179,22 +180,37 @@ class LoginScreenState extends State<LoginScreen>{
                       setState(() {
                         _inAsyncCall = true;
                       });
-                      MyApp.user = await Provider.of<FirebaseAuthService>(context, listen: false).signInWithEmailAndPassword(email.text.trim(), password.text.trim());
+                      try{
+                        MyApp.user = await Provider.of<FirebaseAuthService>(context, listen: false).signInWithEmailAndPassword(email.text.trim(), password.text.trim());
+                      }catch(e){
+                        Dialogs.materialDialog(
+                            msg: 'Could not sign in. Please try again.',
+                            title: "Error",
+                            color: Colors.white,
+                            context: context,
+                            actions: [
+                              FlatButton(
+                                child: Text("Close", style: Theme.of(context).textTheme.button,),
+                                color: Theme.of(context).buttonColor,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(Radius.circular(10))
+                                ),
+                                onPressed: ()=> Navigator.pop(context),
+                              ),
+                            ]
+                        );
+                      }
                     }
                     if(MyApp.user!=null) {
-                      DropBox box = DropBox();
-                      await box.loginWithAccessToken();
-                      await box.listFolder("");
                       MyApp.current = await Provider.of<FirestoreService>(context, listen: false).getUser(MyApp.user.uid);
-                      MyApp.current.image = await box.getTemporaryLink(MyApp.current.image);
                       Navigator.pushAndRemoveUntil(context, PageTransition(
                           type: PageTransitionType.leftToRightWithFade,
-                          child: Navigation()), (Route<
+                          child: SplashPage()), (Route<
                           dynamic> route) => false);
                     }
                       setState(() {
                       _inAsyncCall = false;
-                    });
+                      });
                     },
                 ),
               ),

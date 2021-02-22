@@ -1,8 +1,9 @@
+import 'package:connectify/main.dart';
 import 'package:connectify/models/ConnectifyPost.dart';
+import 'package:connectify/screens/CreatePostScreen.dart';
 import 'package:connectify/services/FirestoreService.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:provider/provider.dart';
-import 'file:///C:/Users/msoha/Desktop/Programming/flutter_applications/connectify/lib/screens/CreatePostScreen.dart';
 import 'package:connectify/services/Dropbox.dart';
 import 'package:connectify/widgets/Post.dart';
 import 'package:flutter/cupertino.dart';

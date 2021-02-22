@@ -12,10 +12,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:uuid/uuid.dart';
-
 import '../main.dart';
 
 class CreatePostPage extends StatefulWidget{
+
+
   @override
   State<StatefulWidget> createState() {
     return CreatePostPageState();
@@ -326,13 +327,12 @@ class CreatePostPageState extends State<CreatePostPage>{
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.all(Radius.circular(10))
                         ),
-                        onPressed: file!=null && description.text!=null && description.text.length>5 ? () async{
+                        onPressed: file!=null && description.text!=null && description.text.length>5  ? () async{
                           if(file != null) {
                             setState(() {
                               _inAsyncCall = true;
                             });
                             String path = await box.uploadPostImage(file);
-                            print(path);
                             ConnectifyPost post = ConnectifyPost(
                               uid: MyApp.user.uid,
                               description: description.text,

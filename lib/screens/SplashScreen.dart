@@ -58,6 +58,13 @@ class SplashPageState extends State<SplashPage>{
               child: Navigation()), (Route<
               dynamic> route) => false);
         });
+      }else{
+        Future.delayed(Duration.zero, () {
+          Navigator.pushAndRemoveUntil(context, PageTransition(
+              type: PageTransitionType.fade,
+              child: LandingScreen()), (Route<
+              dynamic> route) => false);
+        });
       }
     }else{
       Future.delayed(Duration.zero, () {

@@ -151,7 +151,7 @@ class PostState extends State<Post>{
                           Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              time+"   ",
+                              time,
                               style: Theme.of(context).textTheme.subtitle1.merge(TextStyle(fontSize: 15,)),
                             ),
                           ),

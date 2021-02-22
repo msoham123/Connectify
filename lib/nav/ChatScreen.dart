@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
+//This is the screen which shows the Global Chat with the messages and TextField -Soham
 
 class ChatPage extends StatefulWidget{
 
