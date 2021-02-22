@@ -1,6 +1,5 @@
 import 'package:connectify/auth/SchoolScreen.dart';
 import 'package:connectify/models/ConnectifyUser.dart';
-import 'package:connectify/services/Dropbox.dart';
 import 'package:connectify/services/FirestoreService.dart';
 import 'package:connectify/services/FirebaseAuthService.dart';
 import 'package:flutter/cupertino.dart';

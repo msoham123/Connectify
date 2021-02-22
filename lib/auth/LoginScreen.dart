@@ -1,8 +1,6 @@
 import 'package:connectify/auth/LandingScreen.dart';
 import 'package:connectify/main.dart';
-import 'package:connectify/nav/Navigation.dart';
 import 'package:connectify/screens/SplashScreen.dart';
-import 'package:connectify/services/Dropbox.dart';
 import 'package:connectify/services/FirestoreService.dart';
 import 'package:connectify/services/FirebaseAuthService.dart';
 import 'package:flutter/cupertino.dart';

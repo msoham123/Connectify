@@ -5,7 +5,6 @@ import 'package:connectify/services/Dropbox.dart';
 import 'package:connectify/services/FirestoreService.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';

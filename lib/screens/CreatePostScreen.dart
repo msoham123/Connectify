@@ -32,15 +32,15 @@ class CreatePostPageState extends State<CreatePostPage>{
   bool _inAsyncCall = false;
   bool isImage = true;
 
-  Future _takeVideo() async {
-    var image = await ImagePicker().getVideo(source: ImageSource.camera);
-    if(image != null) {
-      setState(() {
-        file = File(image.path);
-        isImage = false;
-      });
-    }
-  }
+  // Future _takeVideo() async {
+  //   var image = await ImagePicker().getVideo(source: ImageSource.camera);
+  //   if(image != null) {
+  //     setState(() {
+  //       file = File(image.path);
+  //       isImage = false;
+  //     });
+  //   }
+  // }
 
   Future _takeImage() async {
     var image = await ImagePicker().getImage(source: ImageSource.camera);

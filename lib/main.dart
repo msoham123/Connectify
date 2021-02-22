@@ -1,4 +1,3 @@
-import 'package:connectify/auth/LandingScreen.dart';
 import 'package:connectify/screens/SplashScreen.dart';
 import 'package:connectify/services/DarkNotifier.dart';
 import 'package:connectify/services/Dropbox.dart';

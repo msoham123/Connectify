@@ -1,4 +1,3 @@
-import 'package:connectify/main.dart';
 import 'package:connectify/models/ConnectifyPost.dart';
 import 'package:connectify/screens/CreatePostScreen.dart';
 import 'package:connectify/services/FirestoreService.dart';

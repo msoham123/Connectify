@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:connectify/services/Dropbox.dart';
 
 class ConnectifyUser{
   String username, email, password, school, description;

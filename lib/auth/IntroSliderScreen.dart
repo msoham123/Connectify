@@ -1,4 +1,3 @@
-import 'package:connectify/nav/Navigation.dart';
 import 'package:connectify/screens/SplashScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

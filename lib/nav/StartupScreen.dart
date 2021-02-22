@@ -1,5 +1,3 @@
-import 'package:connectify/main.dart';
-import 'package:connectify/models/ConnectifyPost.dart';
 import 'package:connectify/models/ConnectifyStartup.dart';
 import 'package:connectify/screens/CreateStartupScreen.dart';
 import 'package:connectify/services/FirestoreService.dart';
@@ -11,7 +9,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class StartupPage extends StatefulWidget{
   @override

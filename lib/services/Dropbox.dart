@@ -42,14 +42,14 @@ class DropBox{
   Future testUpload() async {
     Directory tempDir = await getTemporaryDirectory();
     String tempPath = tempDir.path;
-    final result = await Dropbox.upload(tempPath, '/file.txt', (uploaded, total) {
+    await Dropbox.upload(tempPath, '/file.txt', (uploaded, total) {
       print('progress $uploaded / $total');
     });
   }
 
   Future testDownload() async {
     final filepath = '/path/to/local/file.txt';
-    final result = await Dropbox.download('/dropbox_file.txt', filepath, (downloaded, total) {
+    await Dropbox.download('/dropbox_file.txt', filepath, (downloaded, total) {
       print('progress $downloaded / $total');
     });
   }
@@ -72,7 +72,6 @@ class DropBox{
     // var filepath = '${tempDir.path}/test_upload.txt';
     // File(filepath).writeAsStringSync(
     //     'contents.. from ' + (Platform.isIOS ? 'iOS' : 'Android') + '\n');
-    final result =
     await Dropbox.upload(file.path, '/postImages/${file.path.split("/")[file.path.split("/").length-1]}', (uploaded, total) {
       print('progress $uploaded / $total');
     });
@@ -84,7 +83,6 @@ class DropBox{
     // var filepath = '${tempDir.path}/test_upload.txt';
     // File(filepath).writeAsStringSync(
     //     'contents.. from ' + (Platform.isIOS ? 'iOS' : 'Android') + '\n');
-    final result =
     await Dropbox.upload(file.path, '/profileImages/${file.path.split("/")[file.path.split("/").length-1]}', (uploaded, total) {
       print('progress $uploaded / $total');
     });
@@ -96,7 +94,6 @@ class DropBox{
     // var filepath = '${tempDir.path}/test_upload.txt';
     // File(filepath).writeAsStringSync(
     //     'contents.. from ' + (Platform.isIOS ? 'iOS' : 'Android') + '\n');
-    final result =
     await Dropbox.upload(file.path, '/startupImages/${file.path.split("/")[file.path.split("/").length-1]}', (uploaded, total) {
       print('progress $uploaded / $total');
     });

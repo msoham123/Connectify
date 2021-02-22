@@ -1,11 +1,9 @@
 import 'dart:io';
-import 'package:better_player/better_player.dart';
 import 'package:connectify/models/ConnectifyStartup.dart';
 import 'package:connectify/services/FirestoreService.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:material_dialogs/material_dialogs.dart';
 import 'package:provider/provider.dart';
-import 'package:connectify/models/ConnectifyPost.dart';
 import 'package:connectify/services/Dropbox.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';

@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 class ConnectifyStartup{
   String title, description, uid, path, link;
   Map<String, String> comments;
