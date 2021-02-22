@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectify/main.dart';
+import 'package:connectify/screens/ViewProfileScreen.dart';
 import 'package:connectify/services/FirestoreService.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 
@@ -183,7 +185,7 @@ class MessageBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: ()=> !isMe ? null : showDialog(
+      onTap: ()=> !isMe ? Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeftWithFade, child: ViewProfilePage(uid: uid,))) : showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(

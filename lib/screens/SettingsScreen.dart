@@ -206,7 +206,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
                 Center(
                   child: Text(
-                    "Feedback Form",
+                    "Feedback and Bug Form",
                     style: Theme.of(context)
                         .textTheme
                         .subtitle1
