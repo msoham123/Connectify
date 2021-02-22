@@ -3,8 +3,6 @@ import 'package:connectify/main.dart';
 import 'package:connectify/services/FirestoreService.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 
@@ -20,11 +18,11 @@ class ChatPage extends StatefulWidget{
 
 class ChatPageState extends State<ChatPage> {
   ScrollController _scrollController = ScrollController();
-
-  TextEditingController messageTextController = TextEditingController();
+  TextEditingController _messageTextController = TextEditingController();
 
   void dispose() {
     super.dispose();
+    _messageTextController.dispose();
     _scrollController.dispose();
   }
 
@@ -32,11 +30,6 @@ class ChatPageState extends State<ChatPage> {
   void initState() {
     super.initState();
   }
-
-
-//  String currentChat(){
-//    return (chatRoom=="global_chat") ? "Global Chat" : (chatRoom=="coronavirus_chat") ? "Covid-19 Chat" : (chatRoom=="climate_change_chat") ? "Climate Change Chat" : (chatRoom=="amazon_rainforest_chat") ? "Amazon Rainforest Chat" : (chatRoom=="great_barrier_reef_chat") ? "Great Barrier Reef Chat" : null;
-//  }
 
 
   @override
@@ -71,17 +64,17 @@ class ChatPageState extends State<ChatPage> {
                     child: TextField(
                       style: Theme.of(context).textTheme.subtitle1,
                       onSubmitted: (s)async{
-                        if (messageTextController.text != "") {
+                        if (_messageTextController.text != "") {
                           await Provider.of<FirestoreService>(context, listen: false).sendMessage({
-                            'text': messageTextController.text,
+                            'text': _messageTextController.text,
                             'sender': MyApp.current.username,
                             'timestamp': FieldValue.serverTimestamp(),
                             'uid': MyApp.user.uid,
                           });
-                          messageTextController.clear();
+                          _messageTextController.clear();
                         }
                       },
-                      controller: messageTextController,
+                      controller: _messageTextController,
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                         hintText: 'Type your message here...',
@@ -98,14 +91,14 @@ class ChatPageState extends State<ChatPage> {
                               Radius.circular(10))),
                       color: Theme.of(context).buttonColor,
                       onPressed: () async{
-                        if (messageTextController.text != "")  {
+                        if (_messageTextController.text != "")  {
                           await Provider.of<FirestoreService>(context, listen: false).sendMessage({
-                            'text': messageTextController.text.toString(),
+                            'text': _messageTextController.text.toString(),
                             'sender': MyApp.current.username,
                             'timestamp': FieldValue.serverTimestamp(),
                             'uid': MyApp.user.uid,
                           });
-                          messageTextController.clear();
+                          _messageTextController.clear();
                         }
                       },
                       child: Text(
@@ -122,31 +115,7 @@ class ChatPageState extends State<ChatPage> {
       ),
     );
   }
-//  void switchRoom(String room) {
-//    if(room == "Coronavirus"){
-//      setState(() {
-//        chatRoom = 'coronavirus_chat';
-//      });
-//    } else if(room == 'Global'){
-//      setState(() {
-//        chatRoom = 'global_chat';
-//      });
-//    } else if(room == 'Climate Change'){
-//      setState(() {
-//        chatRoom = 'climate_change_chat';
-//      });
-//    } else if(room == 'Amazon Rainforest'){
-//      setState(() {
-//        chatRoom = 'amazon_rainforest_chat';
-//      });
-//    } else if(room == 'Great Barrier Reef'){
-//      setState(() {
-//        chatRoom = 'great_barrier_reef_chat';
-//      });
-//    }
-//  }
 }
-
 
 class MessagesStream extends StatelessWidget {
   final ScrollController _controller = ScrollController();
@@ -217,7 +186,6 @@ class MessageBubble extends StatelessWidget {
       onTap: ()=> !isMe ? null : showDialog(
         context: context,
         builder: (BuildContext context) {
-          ScrollController _controller = ScrollController();
           return AlertDialog(
             title: Center(child: Text("Delete Message")),
             actions: <Widget>[

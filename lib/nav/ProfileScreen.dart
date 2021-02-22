@@ -112,11 +112,11 @@ class _ProfilePageState extends State<ProfilePage> {
         backgroundColor: Theme.of(context).backgroundColor,
         body: Stack(
           children: [
-            // Container(
-            //   height: MediaQuery.of(context).size.height/6,
-            //   width: MediaQuery.of(context).size.width,
-            //   color: Theme.of(context).buttonColor,
-            // ),
+            Container(
+              height: MediaQuery.of(context).size.height/6,
+              width: MediaQuery.of(context).size.width,
+              color: Theme.of(context).buttonColor,
+            ),
             CupertinoScrollbar(
               controller: _controller,
               child: SmartRefresher(

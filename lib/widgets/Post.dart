@@ -2,11 +2,13 @@ import 'dart:math';
 import 'package:better_player/better_player.dart';
 import 'package:connectify/main.dart';
 import 'package:connectify/models/ConnectifyUser.dart';
+import 'package:connectify/screens/ViewProfileScreen.dart';
 import 'package:connectify/services/Dropbox.dart';
 import 'package:connectify/services/FirestoreService.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 class Post extends StatefulWidget{
@@ -123,15 +125,18 @@ class PostState extends State<Post>{
                       SizedBox(
                         width: MediaQuery.of(context).size.width/20,
                       ),
-                      Center(
-                        child: Container(
-                          height: MediaQuery.of(context).size.height/15,
-                          width: MediaQuery.of(context).size.height/15,
-                          decoration: BoxDecoration(
-                            image: _inAsyncCall ? null: DecorationImage(
-                                fit: BoxFit.cover, image: NetworkImage(user.image)),
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            color: Theme.of(context).buttonColor,
+                      GestureDetector(
+                        onTap: ()=> Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeftWithFade, child: ViewProfilePage(uid: widget.uid))),
+                        child: Center(
+                          child: Container(
+                            height: MediaQuery.of(context).size.height/15,
+                            width: MediaQuery.of(context).size.height/15,
+                            decoration: BoxDecoration(
+                              image: _inAsyncCall ? null: DecorationImage(
+                                  fit: BoxFit.cover, image: NetworkImage(user.image)),
+                              borderRadius: BorderRadius.all(Radius.circular(10)),
+                              color: Theme.of(context).buttonColor,
+                            ),
                           ),
                         ),
                       ),
