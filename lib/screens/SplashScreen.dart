@@ -52,7 +52,7 @@ class SplashPageState extends State<SplashPage>{
     DropBox box = DropBox();
     await box.loginWithAccessToken();
     await box.listFolder("");
-    if(MyApp.box.get('email')!=null) {
+    if(MyApp.box.get('email')!=null && MyApp.box.get("password")==null) {
       MyApp.user =
       await Provider.of<FirebaseAuthService>(context, listen: false)
           .signInWithEmailAndPassword(

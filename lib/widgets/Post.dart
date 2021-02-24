@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+import 'package:share/share.dart';
 
 class Post extends StatefulWidget{
 
@@ -164,8 +165,9 @@ class PostState extends State<Post>{
                             child:  IconButton(
                               splashColor: Colors.transparent,
                               highlightColor: Colors.transparent,
-                              icon: Icon(AntDesign.retweet, color: Theme.of(context).textTheme.subtitle1.color,),
+                              icon: Icon(AntDesign.sharealt, color: Theme.of(context).textTheme.subtitle1.color,),
                               onPressed: (){
+                                Share.share('Check out my cool post on Connectify!', subject: 'Look what I posted!');
                               },
                             ),
                           ),
