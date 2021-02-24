@@ -53,20 +53,29 @@ class SplashPageState extends State<SplashPage>{
     await box.loginWithAccessToken();
     await box.listFolder("");
     if(MyApp.box.get('email')!=null && MyApp.box.get("password")==null) {
-      MyApp.user =
-      await Provider.of<FirebaseAuthService>(context, listen: false)
-          .signInWithEmailAndPassword(
-          MyApp.box.get('email'), MyApp.box.get("password"));
-      if(MyApp.user!=null) {
-        MyApp.current = await Provider.of<FirestoreService>(context, listen: false).getUser(MyApp.user.uid);
-        MyApp.current.image = await box.getTemporaryLink(MyApp.current.image);
-        Future.delayed(Duration.zero, () {
-          Navigator.pushAndRemoveUntil(context, PageTransition(
-              type: PageTransitionType.fade,
-              child: Navigation()), (Route<
-              dynamic> route) => false);
-        });
-      }else{
+      try{
+        MyApp.user =
+        await Provider.of<FirebaseAuthService>(context, listen: false)
+            .signInWithEmailAndPassword(
+            MyApp.box.get('email'), MyApp.box.get("password"));
+        if(MyApp.user!=null) {
+          MyApp.current = await Provider.of<FirestoreService>(context, listen: false).getUser(MyApp.user.uid);
+          MyApp.current.image = await box.getTemporaryLink(MyApp.current.image);
+          Future.delayed(Duration.zero, () {
+            Navigator.pushAndRemoveUntil(context, PageTransition(
+                type: PageTransitionType.fade,
+                child: Navigation()), (Route<
+                dynamic> route) => false);
+          });
+        }else{
+          Future.delayed(Duration.zero, () {
+            Navigator.pushAndRemoveUntil(context, PageTransition(
+                type: PageTransitionType.fade,
+                child: LandingScreen()), (Route<
+                dynamic> route) => false);
+          });
+        }
+      }catch(e){
         Future.delayed(Duration.zero, () {
           Navigator.pushAndRemoveUntil(context, PageTransition(
               type: PageTransitionType.fade,
