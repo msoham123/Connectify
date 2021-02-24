@@ -23,10 +23,18 @@ class SplashPageState extends State<SplashPage>{
   @override
   void initState(){
     super.initState();
-    Future.delayed(Duration.zero, () {
+    if(!MyApp.isGoogle)Future.delayed(Duration.zero, () {
       loadSettings();
       loadProfile();
     });
+    else
+      Future.delayed(Duration.zero, () {
+        Navigator.pushAndRemoveUntil(context, PageTransition(
+            type: PageTransitionType.fade,
+            child: Navigation()), (Route<
+            dynamic> route) => false);
+      });
+
   }
 
   @override

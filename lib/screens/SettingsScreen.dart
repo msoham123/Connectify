@@ -133,6 +133,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                     await Provider.of<FirebaseAuthService>(context, listen: false).signOut();
                                     MyApp.box.put("email", null);
                                     MyApp.box.put("password", null);
+                                    MyApp.isGoogle = false;
                                     Navigator.pushAndRemoveUntil(context, PageTransition(
                                         type: PageTransitionType.fade,
                                         child: LandingScreen()), (Route<

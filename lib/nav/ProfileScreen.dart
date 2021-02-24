@@ -47,6 +47,7 @@ class _ProfilePageState extends State<ProfilePage> {
   void _loadPosts()async{
     await box.loginWithAccessToken();
     await box.listFolder("");
+    MyApp.current.image = await box.getTemporaryLink(MyApp.current.image);
     _postList.clear();
     setState(() {
       _postLoading = true;

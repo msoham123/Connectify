@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
 
   static User user;
   static ConnectifyUser current;
-
+  static bool isGoogle = false;
   static var box = Hive.box('myBox');
 
   @override

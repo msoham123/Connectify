@@ -28,6 +28,11 @@ class FirebaseAuthService {
     return _userFromFirebase(result.user);
   }
 
+  Future<User> signInWithGoogle(var credential) async{
+    UserCredential c = await FirebaseAuth.instance.signInWithCredential(credential);
+    return c.user;
+  }
+
   Future<User> createUserWithEmailAndPassword(String email, String password) async {
     final result = await _firebaseAuth.createUserWithEmailAndPassword(
       email: email,

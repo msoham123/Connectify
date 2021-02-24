@@ -11,7 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:uuid/uuid.dart';
-
 import '../main.dart';
 
 class CreateStartupPage extends StatefulWidget{
