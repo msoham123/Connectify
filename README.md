@@ -88,6 +88,7 @@ Application
 - [Flutter](https://flutter.dev/)
 - [Dart](https://dart.dev/)
 - [Google Cloud Platform](https://cloud.google.com/)
+- [Dropbox API](https://www.dropbox.com/developers)
 - [Firebase Authentication](https://firebase.google.com/products/auth)
 - [Firebase Cloud Firestore](https://firebase.google.com/products/firestore)
 - [Firebase Cloud Storage](https://firebase.google.com/products/storage)
@@ -125,37 +126,31 @@ Application
 - [share](https://pub.dev/packages/share)
 - [hive_flutter](https://pub.dev/packages/hive_flutter)
 
+
 This application was programmed completely in Google's Flutter Framework.
 
 # License
-ChapterTree is licensed under the MIT License - Please view [LICENCE](https://github.com/msoham123/ChapterTree/blob/master/LICENSE) for more details
+Connectify is licensed under the MIT License - Open the LICENCE for more details
 
 # Copyright Information
 * Login and Signup user authentication powered by Firebase and consistent with their API usage policies
+* Cloud Storage powered by Dropbox and consistent with their API usage policies
 * Facebook Logo used for application graphics with explicit permission from Facebook Brand Resources.
 * Twitter Logo used for application graphics with explicit permission from Twitter Brand Resources.
 * Instagram Logo used for application graphics with explicit permission from Twitter Brand Resources.
 * Google logo used for application graphics in accordance with [Google Trademark Policy](https://www.google.com/permissions/trademark/rules.html).
 * The App Store, Xcode, iPad, iPhone, and IOS are all registered trademarks of Apple Inc.
-* The following image acknowledgements are in accordance with the Google Images [copyright policy](https://support.google.com/websearch/answer/29508?hl=en).
-    - "Colusa" image from Google
-    - "Los Osos" image from Google
-    - "Ontario" image from Google
-    - "Pasadena" image from Google
-    - "Redwood" image from Google
-    - "SaltLakeCity" image from Google
-    - "Valencia" image from Google
-    - "Westmoor" image from Google
-    - "TreeIcon" image from Google
-    - "GoogleLogo" image from Google
 * The following image acknowledgements are in accordance with the Undraw [license](https://undraw.co/license).
-    - "Attendance" image from Undraw
-    - "Calendar" image from Undraw
-    - "Events" image from Undraw
-    - "Map" image from Undraw
-    - "Messages" image from Undraw
+    - "Landing" image from Undraw
+    - "Login" image from Undraw
+    - "Signup" image from Undraw
+    - "Skills" image from Undraw
+    - "Portfolio" image from Undraw
+    - "Chat" image from Undraw
+* All other images or media belongs to Connectify or is uploaded by users at their own risk to the platform 
 
 
 # Developers
-* Aryan Vichare - <i>User Interface (UI), Backend, Database, API integration, Server Side Code</i>
-* Soham Manoli - <i>User Interface (UI), User Experience (UX), API integration</i>
+* Soham Manoli - <i>User Interface (UI), Backend, Database, API integration, Server Side Code, Android Configuration</i>
+* Aryan Vichare - <i>User Interface (UI), User Experience (UX), User Testing, IOS Configuration</i>
+
