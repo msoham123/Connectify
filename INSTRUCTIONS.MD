@@ -19,25 +19,6 @@ The following are the most effective methods to run Connectify on your device.
 Prerequisites
 > Device with Android SDK 22 to 29 (Emulator Not Recommended)
 
-# Xcode Deployment
-1. Open up the folder where ChapterTree is downloaded and open up `Runner.xcworkspace`
-   ![Navigate to `Runner.xcworkspace`](./assets/instructionImages/folder.png)
-2. Right when you open up `Runner.xcworkspace` you may get an error regarding `Signing and Capabilities`
-   ![Potential XCode Error on Launch](./assets/instructionImages/signing_error.png)
-3. To fix this, go to the tab `Signing and Capabilities` and select a team. The error should go away after this.
-   ![Signing and Capabilities](./assets/instructionImages/selectteam.png)
-4. You can now view all the iOS code project files and dependencies
-   ![Project Files](./assets/instructionImages/project_files.png)
-5. To run the app, connect a USB-C to lighting cable from your computer to your phone. You should see your device show up as shown below:
-   ![Project Files](./assets/instructionImages/runproject.png)
-6. After the application opens and the Build Succeeds you will be prompted to the login screen
-7. Login with the credentials:
-* email: `judges@gmail.com`
-* password: `fbla123`
-* Note: These credentials have special privileges as a chapter leader such as taking attendence and adding events to the calendar
-  ![iOS](./assets/mockups/ios_login.png)
-9. Feel free to explore the app and refer to our `Core Features` for the full list of our app's functionalities
-10. If you experience a bug in the app, feel free to `Report a Bug` under the `Questions` tab of our app.
 
 
 
