@@ -7,9 +7,10 @@ Fremont High School Mobile App Development
 Date of submission: 2/24/21
 
 # Overview
-Welcome to ChapterTree, an amazing app that allows you to seamlessly manage your chapters! ChapterTree is designed to provide users with a platform to record event information, track chapter attendance, communicate with other FBLA members, talk with our intelligent ChatBot, and learn more about FBLA. Additionally, the app implements API's that enhance the user experience by communicating with our database, implementing google maps, and providing a real time data flow that dynamically updates information that the user needs.
+Welcome to Connectify, an amazing app that allows you to seamlessly connect and network with other students! Connectify is designed to provide users with a platform to post about their hobbies and proffesional interests, create and explore a myriad of innovative and fresh startups, chat with people looking to network, build a expansive portfolio, and gives them the ability to find other likeminded individuals. 
 
-This application was programmed completely in Google's Flutter Framework.
+Additionally, Connectify implements several API's that enhance the user experience, such as the Google Authentication API, Cloud Firestore API, Dropbox API, and more! With the power of our speedy database and the cloud, Connectify provides a real time data flow that dynamically updates information that the user needs, allowing them to interact with other users efficiently. 
+
 
 # Portfolio
 <img src="assets/instructionImages/1.png" width="430" /><img src="assets/instructionImages/2.png" width="430" />  <img src="assets/instructionImages/3.png" width="430" /><img src="assets/instructionImages/4.png" width="430" /><img src="assets/instructionImages/5.png" width="430" /><img src="assets/instructionImages/15.png" width="430" /><img src="assets/instructionImages/6.png" width="430" /><img src="assets/instructionImages/7.png" width="430" /><img src="assets/instructionImages/8.png" width="430" /><img src="assets/instructionImages/9.png" width="430" /><img src="assets/instructionImages/10.png" width="430" /><img src="assets/instructionImages/11.png" width="430" /><img src="assets/instructionImages/12.png" width="430" /><img src="assets/instructionImages/13.png" width="430" /><img src="assets/instructionImages/16.png" width="430" /><img src="assets/instructionImages/14.png" width="430" />
@@ -168,6 +169,8 @@ Prerequisites
 - [snaplist](https://pub.dev/packages/snaplist)
 - [giffy_dialog](https://pub.dev/packages/giffy_dialog)
 - [flappy_search_bar](https://pub.dev/packages/flappy_search_bar)
+
+This application was programmed completely in Google's Flutter Framework.
 
 # License
 ChapterTree is licensed under the MIT License - Please view [LICENCE](https://github.com/msoham123/ChapterTree/blob/master/LICENSE) for more details
