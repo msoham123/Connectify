@@ -22,6 +22,8 @@ class CreateStartupPage extends StatefulWidget{
 
 class CreateStartupPageState extends State<CreateStartupPage>{
 
+  //This is the screen where the user can create a startup. They can upload an image and a link.
+
   ScrollController _controller = ScrollController();
   TextEditingController description = TextEditingController(), title = TextEditingController(), url = TextEditingController();
   DropBox box = DropBox();

@@ -1,4 +1,7 @@
 class ConnectifyStartup{
+
+  //This is the JSON-->Object Model for our Startup
+
   String title, description, uid, path, link;
   Map<String, String> comments;
 

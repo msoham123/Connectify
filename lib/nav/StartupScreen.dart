@@ -19,6 +19,8 @@ class StartupPage extends StatefulWidget{
 
 class StartupPageState extends State<StartupPage>{
 
+  //This is the screen that shows users startups. They can also access the create startup screen from here.
+
   DropBox box = DropBox();
   bool _inAsyncCall = true;
   ScrollController _controller = ScrollController();

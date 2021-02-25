@@ -14,6 +14,7 @@ class IntroSliderScreen extends StatefulWidget{
 
 class IntroSliderScreenState extends State<IntroSliderScreen>{
 
+  //This is the screen that users see after creating a new account. It gives them basic information about the purpose of the app
 
   @override
   Widget build(BuildContext context) {

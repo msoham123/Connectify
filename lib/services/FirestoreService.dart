@@ -10,6 +10,8 @@ import 'Dropbox.dart';
 
 class FirestoreService {
 
+  //Class that provides helper methods for the remote database
+
   final FirebaseFirestore _db = FirebaseFirestore.instance;
   DropBox box = DropBox();
 

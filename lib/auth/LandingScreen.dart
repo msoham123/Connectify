@@ -14,6 +14,7 @@ class LandingScreen extends StatefulWidget{
 
 class LandingScreenState extends State<LandingScreen>{
 
+  //This is the first screen that users see. Here, we can either sign up or log in
 
   @override
   Widget build(BuildContext context) {

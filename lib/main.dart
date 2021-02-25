@@ -13,6 +13,8 @@ import 'models/ConnectifyUser.dart';
 import 'package:path_provider/path_provider.dart' as p;
 
 
+//This is the core of our app. This is where the the framework, local db, dropbox client, and firebase are initialized.
+
 Future<void> main() async{
   WidgetsFlutterBinding.ensureInitialized();
   final dir = await p.getApplicationDocumentsDirectory();
@@ -30,6 +32,14 @@ Future<void> main() async{
 
 
 class MyApp extends StatelessWidget {
+
+
+  //This is the first screen present in our application. Here, we create our global variables, as well as define presets in our application
+  //For effective state management, we are using provider, to inject and listen for changes in the tree
+  //One example of provider is dark mode and theming
+
+  //FYI: Anywhere where the users can receive dynamic data, we have implemented pull to refresh so they can refresh their feeds
+
 
   //Global Variables
 
@@ -71,6 +81,8 @@ class MyApp extends StatelessWidget {
 }
 
 class AppTheme{
+
+  //The theme of our app
 
   static final ThemeData light = ThemeData(
 

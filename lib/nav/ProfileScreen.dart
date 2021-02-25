@@ -22,6 +22,9 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
 
+  //This is the profile screen where the user can view their own portfolio/profile. The user can also access the settings screen and edit screen.
+
+
   ScrollController _controller = ScrollController();
   RefreshController _refreshController = RefreshController();
   bool _inAsyncCall = false, _postLoading = true, _startupLoading = true;

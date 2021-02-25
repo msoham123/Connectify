@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ConnectifyPost{
+
+  //This is the JSON-->Object Model for our Post
+
   String description, uid, path, hashtags;
   Map<String, String> comments;
   List<String> stars;

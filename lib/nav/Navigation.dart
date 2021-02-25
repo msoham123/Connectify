@@ -20,6 +20,8 @@ class Navigation extends StatefulWidget{
 
 class NavigationState extends State<Navigation>{
 
+  //This is a navigator helper that provides utilities such as the bottom navigation bar and indexing
+
   int index = 0;
 
 

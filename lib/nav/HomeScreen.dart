@@ -19,6 +19,9 @@ class HomePage extends StatefulWidget{
 
 class HomePageState extends State<HomePage>{
 
+  //This is the home screen and the first thing that users see when they are logged in. Here, we get posts from the db and load them into a listview
+  //They can also access the create post screen from here
+
   bool _inAsyncCall = true;
   ScrollController _controller = ScrollController();
   List<Widget> list = [];

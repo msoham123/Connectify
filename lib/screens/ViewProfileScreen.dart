@@ -19,6 +19,9 @@ class ViewProfilePage extends StatefulWidget {
 }
 
 class _ViewProfilePageState extends State<ViewProfilePage> {
+
+  //This is the screen that allows you to look at other peoples profiles/portfolios.
+
   ScrollController _controller = ScrollController();
   RefreshController _refreshController = RefreshController();
   bool _inAsyncCall = true;

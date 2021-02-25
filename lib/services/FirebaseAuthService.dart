@@ -4,6 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class FirebaseAuthService {
 
+  //Class that provides helper methods for Authentication
+
   final CollectionReference users = FirebaseFirestore.instance.collection('users');
   final _firebaseAuth = FirebaseAuth.instance;
   bool _loggedIn = false;

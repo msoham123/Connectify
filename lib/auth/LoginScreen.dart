@@ -24,6 +24,8 @@ class LoginScreen extends StatefulWidget{
 
 class LoginScreenState extends State<LoginScreen>{
 
+  //This is the login screen of the application. The user can fill out fields to sign in or sign in with google
+
   TextEditingController email = TextEditingController(), password = TextEditingController() ;
   bool _inAsyncCall = false;
   GoogleSignInAccount google;

@@ -34,6 +34,8 @@ class Post extends StatefulWidget{
 
 class PostState extends State<Post>{
 
+  //Frontend UI Component that displays the values obtained by ConnectifyPost
+
  ConnectifyUser user;
  bool _inAsyncCall = true;
  double milliseconds;

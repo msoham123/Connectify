@@ -20,6 +20,9 @@ class ChatPage extends StatefulWidget{
 }
 
 class ChatPageState extends State<ChatPage> {
+
+  //This is the screen that allows users to chat with each other. Currently, we only have a global chat, but we have the groundwork to implement direct messaging in future.
+
   ScrollController _scrollController = ScrollController();
   TextEditingController _messageTextController = TextEditingController();
 

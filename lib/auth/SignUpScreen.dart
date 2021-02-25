@@ -23,6 +23,10 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class SignUpScreenState extends State<SignUpScreen> {
+
+  //This is the sign up screen of the application. The user can fill out fields to sign up or sign up with google
+
+
   TextEditingController username = TextEditingController(),
       email = TextEditingController(),
       password = TextEditingController();

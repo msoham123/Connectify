@@ -5,6 +5,7 @@ import 'package:path_provider/path_provider.dart';
 
 class DropBox{
 
+  //Class that provides helper methods for Dropbox client
 
   Future initDropbox() async {
     // init dropbox client. (call only once!)

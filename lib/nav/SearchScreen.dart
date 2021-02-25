@@ -12,6 +12,9 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
+
+  //This is where the user can search for posts and startups. We plan to add a user search as well, but for this deliverable, we feel that it is not necessary
+
   ScrollController _controller = ScrollController();
   TextEditingController _search = TextEditingController();
   bool _inAsyncCall = false;

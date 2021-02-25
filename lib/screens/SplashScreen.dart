@@ -19,6 +19,7 @@ class SplashPage extends StatefulWidget{
 
 class SplashPageState extends State<SplashPage>{
 
+  //This is the initial splash screen which displays while the application is performing logic
 
   @override
   void initState(){

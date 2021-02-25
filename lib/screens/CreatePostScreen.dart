@@ -25,6 +25,9 @@ class CreatePostPage extends StatefulWidget{
 
 class CreatePostPageState extends State<CreatePostPage>{
 
+  //This is the screen where the user can create a post. They can take an image, or upload an image/video.
+
+
   ScrollController _controller = ScrollController();
   TextEditingController description = TextEditingController(), hashtags = TextEditingController();
   DropBox box = DropBox();

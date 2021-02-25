@@ -21,7 +21,10 @@ class Startup extends StatefulWidget{
 }
 
 class StartupState extends State<Startup>{
- ConnectifyUser user;
+
+  //Frontend UI Component that displays the values obtained by ConnectifyStartup
+
+  ConnectifyUser user;
  bool _inAsyncCall = true;
  double milliseconds;
  String time = "";

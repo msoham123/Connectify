@@ -19,6 +19,10 @@ class SchoolScreen extends StatefulWidget{
 
 class SchoolScreenState extends State<SchoolScreen>{
 
+  //This is the screen where users can choose what school they go to and which state they are from. These states and schools come from our database.
+  //If you only see California and Fremont High School (or others) while using the app, we have not populated this database. For release, we will have this database populated
+  //We plan to populate the database with all American High Schools and Colleges
+
   bool  _inAsyncCall = false;
   ScrollController _controller = ScrollController();
   bool _school = false, _state = false;

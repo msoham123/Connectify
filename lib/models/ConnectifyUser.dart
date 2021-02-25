@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ConnectifyUser{
+
+  //This is the JSON-->Object Model for our User
+
   String username, email, password, school, description;
   List<String> following, followers, posts, messages;
   DateTime dateAccountCreated;

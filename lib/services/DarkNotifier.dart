@@ -2,7 +2,9 @@ import 'package:connectify/main.dart';
 import 'package:flutter/material.dart';
 
 class DarkNotifier extends ChangeNotifier {
-  //
+
+  //Class for updating DarkMode Status
+
   bool isDarkMode = false;
 
   void updateTheme(bool isDarkMode) {

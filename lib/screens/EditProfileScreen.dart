@@ -25,6 +25,9 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class EditProfilePageState extends State<EditProfilePage> {
+
+  //This is the screen that lets you edit your profile. You can upload a profile pic, change your name, and change your description.
+
   ScrollController _controller = ScrollController();
   TextEditingController description ,
       username;
