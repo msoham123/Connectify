@@ -18,8 +18,8 @@ Additionally, Connectify implements several API's that enhance the user experien
 <img src="assets/portfolio/sintro.png" width="430" /><img src="assets/portfolio/ssplash.png" width="430" /><img src="assets/portfolio/shome.png" width="430" />
 <img src="assets/portfolio/spost.png" width="430" /><img src="assets/portfolio/sstartup.png" width="430" /><img src="assets/portfolio/screate.png" width="430" />
 <img src="assets/portfolio/schat.png" width="430" /><img src="assets/portfolio/ssearch.png" width="430" /><img src="assets/portfolio/sprofile.png" width="430" />
-<img src="assets/portfolio/srefresh.png" width="430" /><img src="assets/portfolio/sedit.png" width="430" /><img src="assets/portfolio/ssettings.png" width="430" />
-<img src="assets/portfolio/ssettings.png" width="430" /><img src="assets/portfolio/srefresh.png" width="430" /><img src="assets/portfolio/sdark.png" width="430" />
+<img src="assets/portfolio/sedit.png" width="430" /><img src="assets/portfolio/ssettings.png" width="430" /><img src="assets/portfolio/srefresh.png" width="430" />
+<img src="assets/portfolio/sdark.png" width="430" />
 
 <br/>
 <img src="assets/images/technologies.png" />
