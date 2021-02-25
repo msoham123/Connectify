@@ -21,8 +21,6 @@ Additionally, Connectify implements several API's that enhance the user experien
 <img src="assets/portfolio/sedit.png" width="430" /><img src="assets/portfolio/ssettings.png" width="430" /><img src="assets/portfolio/srefresh.png" width="430" />
 <img src="assets/portfolio/sdark.png" width="430" />
 
-<br/>
-<img src="assets/images/technologies.png" />
 
 # Brainstorming and Planning
 - [App Design Flow](https://docs.google.com/document/d/1HiQpNK7N295IVqAyzwiOjUOHYOlEwiSwyGvqaZ7WNi0/edit)
@@ -30,42 +28,60 @@ Additionally, Connectify implements several API's that enhance the user experien
 - [Youtube](https://www.youtube.com/channel/UCt45kKvhf02NO_vPSu0RsZQ/featured)
 
 # Core Features
-- Native performance on both iOS and Android
-- Fully responsive and adaptable UI to any screen dimensions
-- Robust backend for Authentication, Cloud database, Cloud Storage
-    - Built-in encryption on database for user passwords
-- Email/Password and Face ID login for extensive accessibility
-- Google sign-in for convenience and accessibility
-- Sends email to user upon sign-up
-    - Powered by Node.js backend and Cloud Functions
-- Beautiful dashboard to view, sign-up, remove local and national events
-    - Harnesses the power of cloud data persistence
-- Social Media Integration to share on many platforms such as Facebook, Twitter, Messenger, Messages, and much more!
-  <img src="assets/mockups/socialIntegration.png" />
 
-- Dynamic calendar to add events seamlessly
-    - Only chapter leaders can track attendance
-- Google Maps API integration to view user's location event destination through markers
-- Google Maps Distance Matrix API integration to view driving distance and time needed to reach event
-    - Utilizes Machine Learning on historical traffic data, weather conditions, and more to provide precise metrics
-- Built-in navigator to view directions in Google Maps
-- Seamless integration for meeting attendance
-    - Only chapter leaders can track attendance
+Performance
+ 
+- Native performance on both iOS and Android
+- Fully responsive and adaptable UI to any screen dimensions, including tablets
+- Robust backend for Authentication 
+    - Built-in encryption on database for user passwords (UUID, Firebase)
+- Email/Password login for extensive accessibility with Firebase Authentication
+- Google sign-in for convenience and accessibility (OAuth, Google Cloud API)
+- Powerful cloud database with Cloud Firestore
+    - Secure, speedy, and reliable
+- High Bandwith and Quality Cloud Storage with Dropbox API
+    - Fast video streams, image storage
+
+Application
+- Seamless Setup Process
+    - Autofill completion for state and school information
+    - Intro slider screen to guide the user
+- Dynamic feed that fetches posts using the power of the cloud
+    - Tracks information such as date published, relevance, etc.
+- Algorithm loads post from your school or related schools
+    - Utilizes Machine Learning on School Object data, such as proximity, type of school
+- Social Media Integration to share on many platforms such as Facebook, Twitter, Messenger, Messages, and much more! (Must have correlated apps installed for integration)
+- Seamless integration for creating a post
+    - Post is added to our database
     - Employs cloud data persistence
-- Embedded Web Viewers to learn more about FBLA
-- Global Messaging FBLA Portal
-    - Users can ask questions, learn more about FBLA, and much more
+    - Error handling incase the upload cannot be performed
+- An innovative solution to create and explore startups
+    - Embedded Web Viewers to learn more about the startup
+    - Image to promote branding and convey central purpose of startup
+    - Description to provide context and overview of startup
+- Seamless integration for creating a startup
+    - Startup is added to our database
+    - Employs cloud data persistence
+    - Error handling incase the upload cannot be performed
+- Global Messaging Networking Portal
+    - Users can ask questions, learn more about subject areas, and network with other likeminded students
     - Powered by Cloud Storage Streaming
-- Smart Assistance AI Powered FBLA Chatbot
-    - Answers all questions pertaining to FBLA (e.g. what is the dress code for FBLA?)
-    - Powered on Google's Neural Networks that perform Natural Language Processing (NLP)
-- Contact us form
-    - Integrated with Gmail API to send email directly to ChapterTree's gmail account
-- Settings page for viewing user profile
-- Dark mode
-- Officer SMS notification
-    - Seamless way to send meeting reminder notifications to all chapter members in a single click
-- Smart Analytics and data aggregation on user metrics such as User Retention
+- Smart Cloud-Powered Search Engine
+    - Finds posts and startups based on the entry query
+    - Designed around the query networking model  (OSI Model)
+- Beautiful Profile Page that allows the user to view detailed and impressive portfolios
+    - The profile image, name, and description can all be changed
+    - You can also view other people's portfolios by clicking on their image
+    - Integrated with Google Auth to automatically create account with Google information if you use a Google Sign In
+- Easy to Access Settings Page
+    - Straightforward signing out process
+    - Simple toggle for dark mode, which reduces energy usage and is better for the eyes in a dark room
+    - Disable analytics option, as we believe that it is the right of the user to decide how and where their data is used
+- Feedback and Bug Report Form in the Settings Page
+    - Allows user to request new features as well as report bugs so we can make the Connectify experience as flawless as possible
+- Blazing Fast Local Database Using Hive
+    - Stores login information and dark mode preferences so the user does not have to sign in or enable dark mode every time they open Connectify
+- Smart Analytics and data aggregation on user metrics such as User Retention, Device Info, etc.
 
 # Technologies and API's used
 
