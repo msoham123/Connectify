@@ -130,7 +130,7 @@ Application
 This application was programmed completely in Google's Flutter Framework.
 
 # License
-Connectify is licensed under the MIT License - Open the LICENCE for more details
+Connectify is licensed under the MIT License - Open the LICENSE for more details
 
 # Copyright Information
 * Login and Signup user authentication powered by Firebase and consistent with their API usage policies
