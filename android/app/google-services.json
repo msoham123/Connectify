@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "842531891305-vfrlnnk2ffp6fr1tdv7oojjup24fl0fu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.connectify",
+            "certificate_hash": "6eaea7ac3b6d448253a19e877c37db0fea4b48c1"
+          }
+        },
+        {
           "client_id": "842531891305-7r3n7bot9htgrf3qd8tvg0uup4uafubl.apps.googleusercontent.com",
           "client_type": 3
         }

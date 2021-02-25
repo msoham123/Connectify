@@ -27,13 +27,15 @@ class SplashPageState extends State<SplashPage>{
       loadSettings();
       loadProfile();
     });
-    else
+    else{
+      loadSettings();
       Future.delayed(Duration.zero, () {
         Navigator.pushAndRemoveUntil(context, PageTransition(
             type: PageTransitionType.fade,
             child: Navigation()), (Route<
             dynamic> route) => false);
       });
+    }
 
   }
 
@@ -52,29 +54,24 @@ class SplashPageState extends State<SplashPage>{
     DropBox box = DropBox();
     await box.loginWithAccessToken();
     await box.listFolder("");
-    if(MyApp.box.get('email')!=null && MyApp.box.get("password")==null) {
+    if(MyApp.user!=null){
+      // MyApp.current.image = await box.getTemporaryLink(MyApp.current.image);
+      Future.delayed(Duration.zero, () {
+        Navigator.pushAndRemoveUntil(context, PageTransition(
+            type: PageTransitionType.fade,
+            child: Navigation()), (Route<
+            dynamic> route) => false);
+      });
+    }else if(MyApp.box.get('email')!=null && MyApp.box.get("password")!=null){
       try{
-        MyApp.user =
-        await Provider.of<FirebaseAuthService>(context, listen: false)
-            .signInWithEmailAndPassword(
-            MyApp.box.get('email'), MyApp.box.get("password"));
-        if(MyApp.user!=null) {
-          MyApp.current = await Provider.of<FirestoreService>(context, listen: false).getUser(MyApp.user.uid);
-          MyApp.current.image = await box.getTemporaryLink(MyApp.current.image);
-          Future.delayed(Duration.zero, () {
-            Navigator.pushAndRemoveUntil(context, PageTransition(
-                type: PageTransitionType.fade,
-                child: Navigation()), (Route<
-                dynamic> route) => false);
-          });
-        }else{
-          Future.delayed(Duration.zero, () {
-            Navigator.pushAndRemoveUntil(context, PageTransition(
-                type: PageTransitionType.fade,
-                child: LandingScreen()), (Route<
-                dynamic> route) => false);
-          });
-        }
+        MyApp.user = await Provider.of<FirebaseAuthService>(context, listen: false).signInWithEmailAndPassword(MyApp.box.get('email'), MyApp.box.get("password"));
+        MyApp.current = await Provider.of<FirestoreService>(context, listen: false).getUser(MyApp.user.uid);
+        Future.delayed(Duration.zero, () {
+          Navigator.pushAndRemoveUntil(context, PageTransition(
+              type: PageTransitionType.fade,
+              child: Navigation()), (Route<
+              dynamic> route) => false);
+        });
       }catch(e){
         Future.delayed(Duration.zero, () {
           Navigator.pushAndRemoveUntil(context, PageTransition(
@@ -83,7 +80,7 @@ class SplashPageState extends State<SplashPage>{
               dynamic> route) => false);
         });
       }
-    }else{
+  }else{
       Future.delayed(Duration.zero, () {
         Navigator.pushAndRemoveUntil(context, PageTransition(
             type: PageTransitionType.fade,
@@ -91,7 +88,48 @@ class SplashPageState extends State<SplashPage>{
             dynamic> route) => false);
       });
     }
+
+    // if(MyApp.box.get('email')!=null && MyApp.box.get("password")!=null) {
+    //   print('2');
+    //   MyApp.user = await Provider.of<FirebaseAuthService>(context, listen: false).signInWithEmailAndPassword(MyApp.box.get('email').toString().trim(), MyApp.box.get("password").toString().trim());
+    //   MyApp.current = await Provider.of<FirestoreService>(context, listen: false).getUser(MyApp.user.uid);
+    //   MyApp.current.image = await box.getTemporaryLink(MyApp.current.image);
+    //   Future.delayed(Duration.zero, () {
+    //     Navigator.pushAndRemoveUntil(context, PageTransition(
+    //         type: PageTransitionType.fade,
+    //         child: Navigation()), (Route<
+    //         dynamic> route) => false);
+    //   });
+      // MyApp.user = await Provider.of<FirebaseAuthService>(context, listen: false).signInWithEmailAndPassword(MyApp.box.get('email'), MyApp.box.get("password"));
+      //   if(MyApp.user!=null) {
+      //     MyApp.current = await Provider.of<FirestoreService>(context, listen: false).getUser(MyApp.user.uid);
+      //     Future.delayed(Duration.zero, ()async {
+      //       MyApp.current.image = await box.getTemporaryLink(MyApp.current.image);
+      //     });
+      //     Future.delayed(Duration.zero, () {
+      //       Navigator.pushAndRemoveUntil(context, PageTransition(
+      //           type: PageTransitionType.fade,
+      //           child: Navigation()), (Route<
+      //           dynamic> route) => false);
+      //     });
+      //   }else{
+      //     Future.delayed(Duration.zero, () {
+      //       Navigator.pushAndRemoveUntil(context, PageTransition(
+      //           type: PageTransitionType.fade,
+      //           child: LandingScreen()), (Route<
+      //           dynamic> route) => false);
+      //     });
+      // }
+    // }else{
+    //   Future.delayed(Duration.zero, () {
+    //     Navigator.pushAndRemoveUntil(context, PageTransition(
+    //         type: PageTransitionType.fade,
+    //         child: LandingScreen()), (Route<
+    //         dynamic> route) => false);
+    //   });
+    // }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +138,7 @@ class SplashPageState extends State<SplashPage>{
         color: Theme.of(context).buttonColor,
         child: Center(
           child: Image.asset(
-              'assets/images/logo.png',
+            'assets/images/logo.png',
             height: MediaQuery.of(context).size.height/3,
           ),
         ),

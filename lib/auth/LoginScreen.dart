@@ -227,6 +227,8 @@ class LoginScreenState extends State<LoginScreen>{
                     }
                     if(MyApp.user!=null) {
                       MyApp.current = await Provider.of<FirestoreService>(context, listen: false).getUser(MyApp.user.uid);
+                      MyApp.box.put("email", email.text.trim());
+                      MyApp.box.put("password", password.text.trim());
                       Navigator.pushAndRemoveUntil(context, PageTransition(
                           type: PageTransitionType.leftToRightWithFade,
                           child: SplashPage()), (Route<
@@ -301,7 +303,7 @@ class LoginScreenState extends State<LoginScreen>{
                           type: PageTransitionType.leftToRightWithFade,
                           child: SplashPage()), (Route<
                           dynamic> route) => false);
-                        MyApp.box.put("email", email.text.trim());
+                        // MyApp.box.put("email", email.text.trim());
                         // MyApp.box.put("password", password.text.trim());
                     }
                     setState(() {

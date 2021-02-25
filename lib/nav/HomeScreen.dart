@@ -28,8 +28,8 @@ class HomePageState extends State<HomePage>{
 
   @override
   void initState() {
-    _loadData();
     super.initState();
+    _loadData();
   }
 
   @override
