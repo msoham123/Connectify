@@ -17,7 +17,7 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
 
-  //This is the page where the user can change their settings. They can sign out, enable dark mode, and disable analytics.
+  //This is the page where the user can change their settings. They can sign out, submit a bug report or give feedback, enable dark mode, and disable analytics.
 
   ScrollController _controller = ScrollController();
   TextEditingController feedback = TextEditingController();
