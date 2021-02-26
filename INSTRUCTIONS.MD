@@ -1,6 +1,8 @@
 # Getting Started
 The following are the most effective methods to run Connectify on your device.
 
+Connectify is cross platform, and is compatible with IOS as well. However, since we do not have access to Xcode at the moment, we are focusing this submission to Android only.
+
 
 #### Android Setup:
 1. Download the app-release apk, either from this package in the root directory, or from this live link: (https://drive.google.com/file/d/1gP2CXEYs4QAmjLuJhOThD88671v8cNfX/view?usp=sharing)
