@@ -23,9 +23,13 @@ Additionally, Connectify implements several API's that enhance the user experien
 
 
 # Brainstorming and Planning
-- [App Design Flow](https://docs.google.com/document/d/1HiQpNK7N295IVqAyzwiOjUOHYOlEwiSwyGvqaZ7WNi0/edit)
-- [App Brainstorm](https://docs.google.com/document/d/1ZdlabqNYcHull3JlMOZ7KsLOXtSgzFny4yDk9xCPQ4U/edit)
-- [Youtube](https://www.youtube.com/channel/UCt45kKvhf02NO_vPSu0RsZQ/featured)
+- As developers, we wanted to ensure that we developed Connectify with the utmost efficiency, precision, and industry leading practices. With this in mind, we decided to go with the Agile Development Flow.
+- In order to manage our development flow, we used Jira, Project Management Software, where we can utilize the full power of Agile Development through sprints, stories, and epics.
+<img src="assets/portfolio/jira.png" width="430" />
+
+- Additionally, we used Whimsical and the power of flowcharts to map out the navigation and flow of our application. Here is the [link](https://whimsical.com/connectify-ui-XNmngw3TDiF2i3nm9hPaLx) to the flowchart.
+
+- Finally, to actual brainstorm the main idea of the application, we created a Google Document and brainstormed our ideas there. Here is the [link](https://docs.google.com/document/d/1ii7XncCHN1d70GkPUmBKxlCEMe5Ol3ltzwQC9ng-e8M/edit?usp=sharing) to the brainstorm document.
 
 # Core Features
 
