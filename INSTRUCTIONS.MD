@@ -5,10 +5,10 @@ Connectify is cross platform, and is compatible with IOS as well. However, since
 
 
 #### Android Setup (Recommended):
-1. Download the app-release apk, either from this package in the root directory, or from this live link: (https://drive.google.com/file/d/1gP2CXEYs4QAmjLuJhOThD88671v8cNfX/view?usp=sharing)
+1. Download the app-release apk, either from this package in the root directory, or from this live link: https://drive.google.com/file/d/1gP2CXEYs4QAmjLuJhOThD88671v8cNfX/view?usp=sharing
 2. Open the downloaded apk by tapping on it, and proceed to install it on your android device.
    - If you are having trouble getting the apk on to your device, follow this guide 
-        - (https://www.lifewire.com/install-apk-on-android-4177185)
+        - https://www.lifewire.com/install-apk-on-android-4177185
 3. Google Play Protect will inform you that the app comes from an untrusted source. Ignore any messages that you get and ignore/reject them.
 4. The app is now installed! Run it like you would with any other android device.
 5. You make your own account and go through the sign up process. For the sake of judging, we have created a judge account, so the judges can get into the app without having to go through the set up and intro screens.
@@ -24,5 +24,5 @@ Prerequisites
 #### IDE Setup (Not recommended):
 - If you would like the build the app in a Flutter supported IDE (VSCode, Intellij, Android Studio), then you must extract all of the contents of this pack and open the folder in the IDE. Ensure that the Flutter SDK and corresponding plugins are ready, and build and run the application on your android device. 
    - For more information, visit:
-      - (https://flutter.dev/docs/get-started/test-drive)
-      - (https://kobiton.com/topics/develop-deploy-and-test-flutter-apps/)
+      - https://flutter.dev/docs/get-started/test-drive
+      - https://kobiton.com/topics/develop-deploy-and-test-flutter-apps/
