@@ -27,7 +27,7 @@ Additionally, Connectify implements several API's that enhance the user experien
 <img src="assets/portfolio/agile.png" width="430" />
 
 - In order to manage our development flow, we used Jira, Project Management Software, where we can utilize the full power of Agile Development through sprints, stories, and epics.
-<img src="assets/portfolio/jira.png" width="430" />
+<img src="assets/portfolio/jira.png" width="830" />
 
 - Additionally, we used Whimsical and the power of flowcharts to map out the navigation and flow of our application. Here is the [link](https://whimsical.com/connectify-ui-XNmngw3TDiF2i3nm9hPaLx) to the flowchart.
 
