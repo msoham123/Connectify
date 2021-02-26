@@ -24,6 +24,8 @@ Additionally, Connectify implements several API's that enhance the user experien
 
 # Brainstorming and Planning
 - As developers, we wanted to ensure that we developed Connectify with the utmost efficiency, precision, and industry leading practices. With this in mind, we decided to go with the Agile Development Flow.
+<img src="assets/portfolio/agile.png" width="430" />
+
 - In order to manage our development flow, we used Jira, Project Management Software, where we can utilize the full power of Agile Development through sprints, stories, and epics.
 <img src="assets/portfolio/jira.png" width="430" />
 
