@@ -1,9 +1,11 @@
 # Getting Started
 The following are the most effective methods to run Connectify on your device.
 
+Connectify is cross platform, and is compatible with IOS as well. However, since we do not have access to Xcode at the moment, we are focusing this submission to Android only.
 
-#### Android Setup:
-1. Download the app-release apk, either from this package in the root directory, or from this live link: (https://drive.google.com/file/d/1gP2CXEYs4QAmjLuJhOThD88671v8cNfX/view?usp=sharing)
+
+#### Android Setup (Recommended):
+1. Download the app-release apk, either from this package in the root directory, or from this live link: https://drive.google.com/file/d/1gP2CXEYs4QAmjLuJhOThD88671v8cNfX/view?usp=sharing
 2. Open the downloaded apk by tapping on it, and proceed to install it on your android device.
    - If you are having trouble getting the apk on to your device, follow this guide 
         - https://www.lifewire.com/install-apk-on-android-4177185
@@ -19,6 +21,8 @@ The following are the most effective methods to run Connectify on your device.
 Prerequisites
 > Device with Android SDK 22 to 29 (Emulator Not Recommended)
 
-
-
-
+#### IDE Setup (Not recommended):
+- If you would like the build the app in a Flutter supported IDE (VSCode, Intellij, Android Studio), then you must extract all of the contents of this pack and open the folder in the IDE. Ensure that the Flutter SDK and corresponding plugins are ready, and build and run the application on your android device. 
+   - For more information, visit:
+      - https://flutter.dev/docs/get-started/test-drive
+      - https://kobiton.com/topics/develop-deploy-and-test-flutter-apps/
