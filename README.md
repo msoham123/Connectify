@@ -158,5 +158,3 @@ Connectify is licensed under the MIT License - Open the LICENSE for more details
 
 # Developers
 * Soham Manoli - <i>User Interface (UI), Backend, Database, API integration, Server Side Code, Android Configuration</i>
-* Aryan Vichare - <i>User Interface (UI), User Experience (UX), User Testing, IOS Configuration</i>
-
